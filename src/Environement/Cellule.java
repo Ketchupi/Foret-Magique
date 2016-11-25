@@ -6,12 +6,12 @@ public class Cellule {
 	protected int positionY;
 	protected int positionAbsolueX;
 	protected int positionAbsolueY;
-	protected boolean bijou;
-	protected boolean poussiere;
 	protected int taille;
 	protected boolean presencePersonne = false;
 	protected boolean presenceVent = false;
 	protected boolean presenceCaca = false;
+	protected boolean presenceMonstre = false;
+	protected boolean presenceTrou = false;
 
 	/*
 	 * Constructeurs
@@ -56,6 +56,14 @@ public class Cellule {
 	public void setCaca(boolean b) {
 		this.presenceCaca = b;
 	}
+	
+	public void setMonstre(boolean b) {
+		this.presenceCaca = b;
+	}
+	
+	public void setTrou(boolean b) {
+		this.presenceCaca = b;
+	}
 
 	public boolean getPersonne() {
 		return presencePersonne;
@@ -66,6 +74,14 @@ public class Cellule {
 	}
 
 	public boolean getCaca() {
+		return presenceCaca;
+	}
+	
+	public boolean getMonstre() {
+		return presenceCaca;
+	}
+	
+	public boolean getTrou() {
 		return presenceCaca;
 	}
 
