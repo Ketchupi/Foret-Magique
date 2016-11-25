@@ -39,4 +39,12 @@ public class Grille extends JPanel {
 			}
 		}
 	}
+
+	public Cellule[][] getCellules() {
+		return cellules;
+	}
+
+	public void setCellules(Cellule[][] cellules) {
+		this.cellules = cellules;
+	}
 }
