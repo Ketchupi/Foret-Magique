@@ -12,8 +12,9 @@ public class mainGraphique {
 		// création de la fenêtre
 		int cpt = 0;
 		int sens = 0;
-		for (int i = 0; i < 5; i++) {
-			for (int j = 0; j < 5; j++) {
+		int dimmension = 4;
+		for (int i = 0; i < dimmension; i++) {
+			for (int j = 0; j < dimmension; j++) {
 				// Nouvelle instance d'une celule
 				cell[i][j] = new Cellule(0, 0, 60, i, j);
 
@@ -23,7 +24,7 @@ public class mainGraphique {
 		Fenetre fenetre;
 
 		
-		fenetre = new Fenetre(cell);
+		fenetre = new Fenetre(cell,dimmension);
 		while (true) {
 
 			

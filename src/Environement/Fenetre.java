@@ -23,13 +23,15 @@ public class Fenetre extends JFrame implements ActionListener {
 	protected Thread threadRobot;
 	protected Thread threadEnvironnement;
 	private int switchBouton = 0;
+	private int dimm;
 	/*
 	 * Constructeurs
 	 */
 
-	public Fenetre(Cellule[][] cell) {
+	public Fenetre(Cellule[][] cell, int dimm) {
+		this.dimm = dimm;
 		this.cellules = cell;
-		this.grille = new Grille(cell);
+		this.grille = new Grille(cell,dimm);
 		this.setTitle("Animation");
 		this.setSize(750, 300);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
