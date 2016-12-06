@@ -12,6 +12,7 @@ public class Cellule {
 	protected boolean presenceCaca = false;
 	protected boolean presenceMonstre = false;
 	protected boolean presenceTrou = false;
+	protected boolean presenceGate = false;
 
 	/*
 	 * Constructeurs
@@ -58,11 +59,15 @@ public class Cellule {
 	}
 	
 	public void setMonstre(boolean b) {
-		this.presenceCaca = b;
+		this.presenceMonstre = b;
 	}
 	
 	public void setTrou(boolean b) {
-		this.presenceCaca = b;
+		this.presenceTrou = b;
+	}
+	
+	public void setGate(boolean b) {
+		this.presenceGate = b;
 	}
 
 	public boolean getPersonne() {
@@ -78,11 +83,15 @@ public class Cellule {
 	}
 	
 	public boolean getMonstre() {
-		return presenceCaca;
+		return presenceMonstre;
 	}
 	
 	public boolean getTrou() {
-		return presenceCaca;
+		return presenceTrou;
+	}
+	
+	public boolean getGate() {
+		return presenceGate;
 	}
 
 }

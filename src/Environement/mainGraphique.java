@@ -21,6 +21,15 @@ public class mainGraphique {
 			}
 		}
 		
+		/**
+		 * TEST des boolean pour dessiner
+		 */
+		cell[2][2].setPersonne(true);
+		cell[1][2].setMonstre(true);
+		cell[3][1].setCaca(true);
+		cell[3][2].setVent(true);
+		cell[0][1].setGate(true);
+		cell[0][0].setTrou(true);
 		Fenetre fenetre;
 
 		
