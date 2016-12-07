@@ -20,7 +20,7 @@ public class RandomMagic {
 			int j = generator.nextInt(dimension+1);
 			
 			grille[i][j].setMonstre(true);
-			
+			generateSmell(grille, i, j, dimension);
 			int k = generator.nextInt(dimension+1);
 			int l = generator.nextInt(dimension+1);
 			
@@ -30,11 +30,11 @@ public class RandomMagic {
 			} while ((k!=i)&&(l!=j));
 			
 			grille[k][l].setTrou(true);
+			generateWind(grille, i, j, dimension);
 			
 			//gestion du cas ou le monstre et le trou sont cote a cote
 			if(((java.lang.Math.abs(k-i)+java.lang.Math.abs(l-j))!=1)){
-				generateWind(grille,k,l, dimension);
-				generateWind(grille,i,j, dimension);
+				
 			}
 			
 			generated = true;
