@@ -1,15 +1,18 @@
-package Environement;
+﻿package Environement;
 
 
 
 public class mainGraphique {
 
 	static int dimmension = 4;
-	protected static Cellule[][] cell = new Cellule[dimmension][dimmension];
+	protected static Cellule[][] cell = null;
 
 	public static void main(String[] args)
 
 	{
+		RandomMagic generator = new RandomMagic();
+
+		cell = new Cellule[dimmension][dimmension];
 		// création de la fenêtre
 		
 		for (int i = 0; i < dimmension; i++) {
@@ -20,6 +23,9 @@ public class mainGraphique {
 			}
 		}
 		
+		//Creation emplacement monstre & trou
+		generator.generatePlace(cell, dimmension);
+
 		/**
 		 * TEST des boolean pour dessiner
 		 */

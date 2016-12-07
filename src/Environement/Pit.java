@@ -1,4 +1,4 @@
-package Environement;
+﻿package Environement;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -10,7 +10,11 @@ public class Pit {
 	private int posX = 0;
 	private int posY = 0;
 	
-	private Image bg = Toolkit.getDefaultToolkit().getImage("/Users/remymaillot/Documents/SourceTreeFolder/Git/src/Environement/pit.png");;
+	private String adresseRama = "C:/Users/rama/Documents/Foret-Magique/src/Environement/";
+	private String adresseRemy = "/Users/remymaillot/Documents/SourceTreeFolder/Git/src/Environement/";
+
+	private Image bg = Toolkit.getDefaultToolkit().getImage(adresseRama.concat("monstre.png"));
+
 
 	/*
 	 * Méthodes

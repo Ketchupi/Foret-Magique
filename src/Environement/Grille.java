@@ -18,7 +18,7 @@ public class Grille extends JPanel {
 	protected Vent vent = new Vent();
 	protected Gate gate = new Gate();
 	protected Pit pit = new Pit();
-	protected Cellule[][] cellules = new Cellule[5][5];
+	protected Cellule[][] cellules = null;
 
 	/*
 	 * Constructeurs
