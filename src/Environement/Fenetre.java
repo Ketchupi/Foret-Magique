@@ -16,7 +16,7 @@ public class Fenetre extends JFrame implements ActionListener {
 	private JButton b1 = new JButton("Play/Pause");
 	private JButton b2 = new JButton("Quitter");
 
-	protected Cellule[][] cellules = new Cellule[5][5];
+	protected Cellule[][] cellules = null;
 	protected Grille grille;
 
 	protected Thread threadGeneration;
@@ -49,6 +49,7 @@ public class Fenetre extends JFrame implements ActionListener {
 
 		this.getContentPane().add(grille, BorderLayout.CENTER);
 		// this.getContentPane().add(robot,BorderLayout.CENTER);
+		
 
 		this.setVisible(true);
 
@@ -102,5 +103,12 @@ public class Fenetre extends JFrame implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			System.exit(0);
 		}
+	}
+	
+	public void updateFenetre(Cellule[][] cell,int dim){
+		this.getContentPane().remove(grille);
+		this.grille = new Grille(cell,dim);
+		this.getContentPane().add(grille, BorderLayout.CENTER);
+		this.setVisible(true);
 	}
 }

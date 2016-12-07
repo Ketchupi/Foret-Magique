@@ -32,6 +32,7 @@ public class RandomMagic {
 			grille[k][l].setTrou(true);
 			
 			//gestion du cas ou le monstre et le trou sont cote a cote
+			
 			if(((java.lang.Math.abs(k-i)+java.lang.Math.abs(l-j))!=1)){
 				generateWind(grille,k,l, dimension);
 				generateWind(grille,i,j, dimension);

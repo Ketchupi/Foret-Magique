@@ -5,7 +5,7 @@ import Generation.*;
 
 public class mainGraphique {
 
-	static int dimmension = 5;
+	static int dimmension = 10;
 	protected static Cellule[][] cell = null;
 	
 	
@@ -25,23 +25,24 @@ public class mainGraphique {
 		}
 		
 		//Creation emplacement monstre & trou
-		generator.generatePlace(cell, dimmension);
+		//generator.generatePlace(cell, dimmension);
 
 		/**
 		 * TEST des boolean pour dessiner
 		 */
-		/*
+		
 		cell[2][2].setPersonne(true);
 		cell[1][2].setMonstre(true);
 		cell[3][1].setCaca(true);
 		cell[3][2].setVent(true);
 		cell[0][1].setGate(true);
 		cell[0][0].setTrou(true);
-		*/
+		
 		//Fenetre fenetre;
 		
-		Thread thGraphique = new Thread(new ThreadGraphique(cell,500,dimmension));
+		Thread thGraphique = new Thread(new ThreadGraphique(cell,500,3));
 		thGraphique.start();
+		//thGraphique.destroy();
 		
 	}
 

@@ -32,8 +32,10 @@ public class ThreadGraphique implements Runnable {
 		while (true) {
 
 			// On actualise la fenêtre
-			fenetre.repaint();		
-
+			fenetre.repaint();	
+			cpt++;
+			
+			if(cpt == 10) fenetre.updateFenetre(cellules, 6);
 			// Timer
 			try {
 				Thread.sleep(timer);
