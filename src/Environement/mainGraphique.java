@@ -5,7 +5,7 @@ import Generation.*;
 
 public class mainGraphique {
 
-	static int dimmension = 5;
+	static int dimmension = 8;
 	protected static Cellule[][] cell = null;
 	
 	
