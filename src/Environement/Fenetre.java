@@ -19,9 +19,7 @@ public class Fenetre extends JFrame implements ActionListener {
 	protected Cellule[][] cellules = new Cellule[5][5];
 	protected Grille grille;
 
-
-	protected Thread threadRobot;
-	protected Thread threadEnvironnement;
+	protected Thread threadGeneration;
 	private int switchBouton = 0;
 	private int dimm;
 	/*
@@ -29,6 +27,7 @@ public class Fenetre extends JFrame implements ActionListener {
 	 */
 
 	public Fenetre(Cellule[][] cell, int dimm) {
+		this.setDimm(dimm);
 		this.dimm = dimm;
 		this.cellules = cell;
 		this.grille = new Grille(cell,dimm);
@@ -58,17 +57,24 @@ public class Fenetre extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent arg0) {
 		switch (switchBouton) {
 		case 0:
-			threadRobot.suspend();
-			threadEnvironnement.suspend();
+			//threadGeneration.suspend();
+			
 			switchBouton = 1;
 			break;
 
 		case 1:
-			threadRobot.resume();
-			threadEnvironnement.resume();
+			//threadGeneration.resume();
 			switchBouton = 0;
 			break;
 		}
+	}
+
+	public int getDimm() {
+		return dimm;
+	}
+
+	public void setDimm(int dimm) {
+		this.dimm = dimm;
 	}
 
 	// Classe écoutant notre premier bouton
@@ -77,14 +83,13 @@ public class Fenetre extends JFrame implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
 			switch (switchBouton) {
 			case 0:
-				threadRobot.suspend();
-				threadEnvironnement.suspend();
+				//threadGeneration.suspend();
+			
 				switchBouton = 1;
 				break;
 
 			case 1:
-				threadRobot.resume();
-				threadEnvironnement.resume();
+				//threadGeneration.resume();
 				switchBouton = 0;
 				break;
 			}
