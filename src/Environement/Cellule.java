@@ -29,6 +29,13 @@ public class Cellule {
 	/*
 	 * Getters et setters
 	 */
+	public void setTaille(int taille){
+		this.taille = taille;
+	}
+	
+	public int getTaille(){
+		return taille;
+	}
 
 	public int getPositionAbsolueX() {
 		return positionAbsolueX;

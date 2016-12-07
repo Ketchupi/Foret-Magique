@@ -1,6 +1,6 @@
 package Environement;
 
-
+import Agent.AgentPlayer;
 
 public class ThreadGraphique implements Runnable {
 
@@ -9,11 +9,13 @@ public class ThreadGraphique implements Runnable {
 	private int dimm;
 	static int cpt = 0;
 	static int cpt1 = 0;
+	private AgentPlayer player;
 	/*
 	 * Constructeurs
 	 */
 
-	public ThreadGraphique(Cellule[][] cellules, int timer, int dim) {
+	public ThreadGraphique(AgentPlayer player,Cellule[][] cellules, int timer, int dim) {
+		this.player = player;
 		this.cellules = cellules;
 		this.timer = timer;
 		this.dimm = dim;
@@ -35,7 +37,7 @@ public class ThreadGraphique implements Runnable {
 			fenetre.repaint();	
 			cpt++;
 			
-			if(cpt == 10) fenetre.updateFenetre(cellules, 6);
+			if(player.findGate() == 1) fenetre.updateFenetre(cellules, 4);
 			// Timer
 			try {
 				Thread.sleep(timer);
