@@ -7,7 +7,11 @@ import Generation.*;
 
 public class mainGraphique {
 
+<<<<<<< HEAD
+	static int dimmension = 5;
+=======
 	static int dimmension = 10;
+>>>>>>> bd18e669b6d3b3772b813e543009f9227b5e8136
 	protected static Cellule[][] cell = null;
 	private static AgentPlayer player;
 	
@@ -22,19 +26,20 @@ public class mainGraphique {
 		
 		for (int i = 0; i < dimmension; i++) {
 			for (int j = 0; j < dimmension; j++) {
-				// Nouvelle instance d'une celule
+				// Nouvelle instance d'une cellule
 				cell[i][j] = new Cellule(0, 0, 60, i, j);
 			}
 		}
 		player = new AgentPlayer();
 		
 		//Creation emplacement monstre & trou
-		//generator.generatePlace(cell, dimmension);
+		generator.generatePlace(cell, dimmension);
 
-		/**
-		 * TEST des boolean pour dessiner
-		 */
 		
+<<<<<<< HEAD
+		//Fenetre fenetre;		
+		Thread thGraphique = new Thread(new ThreadGraphique(cell,500,dimmension));
+=======
 		cell[2][2].setPersonne(true);
 		cell[3][0].setMonstre(true);
 		cell[3][1].setCaca(true);
@@ -50,6 +55,7 @@ public class mainGraphique {
 		 */
 		
 		Thread thGraphique = new Thread(new ThreadGraphique(player,cell,500,3));
+>>>>>>> bd18e669b6d3b3772b813e543009f9227b5e8136
 		thGraphique.start();
 		Thread thPlayer = new Thread(new ThreadPlayer(player,cell,500,3));
 		thPlayer.start();
