@@ -9,12 +9,13 @@ public class ThreadPlayer implements Runnable {
 	private int timer;
 	private int dimm;
 	int cpt;
-	private AgentPlayer player = new AgentPlayer();
+	private AgentPlayer player;
 	/*
 	 * Constructeurs
 	 */
 
-	public ThreadPlayer(Cellule[][] cellules, int timer, int dim) {
+	public ThreadPlayer(AgentPlayer player,Cellule[][] cellules, int timer, int dim) {
+		this.player=player;
 		this.cellules = cellules;
 		this.timer = timer;
 		this.dimm = dim;
@@ -30,6 +31,7 @@ public class ThreadPlayer implements Runnable {
 		while (true) {
 
 			player.afficherPlayer(cellules);
+			player.findGate();
 			//=====TEST====
 			if(cpt >8){
 				player.setPositionX(2);player.setPositionY(0);

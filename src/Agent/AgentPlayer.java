@@ -8,9 +8,11 @@ public class AgentPlayer {
 	private int positionY;
 	private int positionABSX;
 	private int positionABSY;
+	private Cellule[][] cellules;
 	
 	public void afficherPlayer(Cellule[][] cellules) {
 		// Pour toutes les cases possibles
+		this.cellules = cellules;
 		for (int y = 0; y < cellules.length ; y++) {
 			for (int x = 0; x < cellules.length; x++) {
 				// Si la case fait partie des cases de l'environnement et que le
@@ -33,7 +35,12 @@ public class AgentPlayer {
 		this.positionY=y;
 	}
 	
-	
+	public int findGate(){
+		if (cellules[positionX][positionY].getGate()==true){
+			return 1;
+		}
+		return 0;
+	}
 	
 	
 	
