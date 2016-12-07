@@ -5,7 +5,10 @@ import Generation.*;
 
 public class mainGraphique {
 
+<<<<<<< HEAD
 	static int dimmension = 10;
+=======
+>>>>>>> 6d904d902877b102b3a8f1db503f7a129583261a
 	protected static Cellule[][] cell = null;
 	
 	
