@@ -33,14 +33,17 @@ public class ThreadPlayer implements Runnable {
 			player.afficherPlayer(cellules);
 			player.findGate();
 			//=====TEST====
-			if(cpt >8){
+			if(cpt >5){
 				player.setPositionX(2);player.setPositionY(0);
 			}
-			if(cpt >16){
+			if(cpt >10){
 				player.setPositionX(3);player.setPositionY(0);
 			}
-			if(cpt >24){
+			if(cpt >15){
 				player.setPositionX(3);player.setPositionY(0);
+			}
+			if(cpt >20){
+				player.setPositionX(4);player.setPositionY(0);
 			}
 			cpt ++;
 			//=====FIN TEST====

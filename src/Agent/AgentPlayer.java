@@ -9,6 +9,16 @@ public class AgentPlayer {
 	private int positionABSX;
 	private int positionABSY;
 	private Cellule[][] cellules;
+	private int lvl;
+	private boolean onGate;
+	public boolean tempo=false;
+	
+	//MESURE
+	private int roche=0;
+	private int mouvement=0;
+	private int mort=0;
+	private int nb_sortie=0;
+	private int score=0;
 	
 	public void afficherPlayer(Cellule[][] cellules) {
 		// Pour toutes les cases possibles
@@ -27,6 +37,7 @@ public class AgentPlayer {
 	}
 	
 	public void initPositionPlayer(){
+		this.lvl=0;
 		this.positionX=1;
 		this.positionY=0;
 	}
@@ -36,12 +47,34 @@ public class AgentPlayer {
 	}
 	
 	public int findGate(){
-		if (cellules[positionX][positionY].getGate()==true){
-			return 1;
+		if (cellules[positionX][positionY].getGate()==true && tempo == false){
+			lvl++;
+			System.out.println(lvl);
+			tempo = true;
+			this.nb_sortie++;
+			return lvl;
 		}
-		return 0;
+		return lvl;
 	}
 	
+	public boolean findMonstre(){
+		if (cellules[positionX][positionY].getMonstre()==true){
+			this.mort++;	
+			System.out.println(mort);
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * MESURE DE PERFORMANCE
+	 * @return
+	 */
+	
+	public int scoreAgentPlayer(){
+		
+		return score;
+	}
 	
 	
 	
@@ -70,6 +103,46 @@ public class AgentPlayer {
 	}
 	public void setPositionABSY(int positionABSY) {
 		this.positionABSY = positionABSY;
+	}
+
+	public boolean isOnGate() {
+		return onGate;
+	}
+
+	public void setOnGate(boolean onGate) {
+		this.onGate = onGate;
+	}
+
+	public int getRoche() {
+		return roche;
+	}
+
+	public void setRoche(int roche) {
+		this.roche = roche;
+	}
+
+	public int getMouvement() {
+		return mouvement;
+	}
+
+	public void setMouvement(int mouvement) {
+		this.mouvement = mouvement;
+	}
+
+	public int getMort() {
+		return mort;
+	}
+
+	public void setMort(int mort) {
+		this.mort = mort;
+	}
+
+	public int getNb_sortie() {
+		return nb_sortie;
+	}
+
+	public void setNb_sortie(int nb_sortie) {
+		this.nb_sortie = nb_sortie;
 	}
 
 }

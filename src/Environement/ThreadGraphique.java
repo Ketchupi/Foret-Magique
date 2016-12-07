@@ -35,9 +35,25 @@ public class ThreadGraphique implements Runnable {
 
 			// On actualise la fenêtre
 			fenetre.repaint();	
-			cpt++;
 			
-			if(player.findGate() == 1) fenetre.updateFenetre(cellules, 4);
+			
+			if(player.findGate() == 1) {
+				this.cellules[2][0].setGate(false);
+				player.tempo=false;
+				this.cellules[4][0].setGate(true);
+				fenetre.updateFenetre(cellules, 5);
+			}
+			if(player.findGate() == 2) {
+				this.cellules[4][0].setGate(false);
+				System.out.println("yoloooo");
+				//this.cellules[4][0].setGate(true);
+				fenetre.updateFenetre(cellules, 6);
+			}
+			if(player.findMonstre() == true) {
+				
+				fenetre.updateFenetre(cellules, 3);
+			}
+			
 			// Timer
 			try {
 				Thread.sleep(timer);

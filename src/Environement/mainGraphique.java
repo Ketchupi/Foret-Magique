@@ -36,7 +36,7 @@ public class mainGraphique {
 		 */
 		
 		cell[2][2].setPersonne(true);
-		cell[1][2].setMonstre(true);
+		cell[3][0].setMonstre(true);
 		cell[3][1].setCaca(true);
 		cell[3][2].setVent(true);
 		cell[2][0].setGate(true);
