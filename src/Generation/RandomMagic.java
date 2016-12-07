@@ -6,12 +6,11 @@ import java.util.Random;
 import Environement.Cellule;
 import Environement.Grille;
 import java.lang.*;
-import java.lang.Math;
 
 public class RandomMagic {
 
 	private Grille grille;
-	
+	private static Boolean generated;
 	
 	public void generatePlace(Cellule[][] grille, int dimension){
 		
@@ -151,6 +150,10 @@ public class RandomMagic {
 		}	
 	}
 	
+	public void setBoth(Cellule[][] grille, int i, int j){
+		grille[i][j].setCaca(true);
+		grille[i][j].setVent(true);
+	}
 	public void generateBoth(Cellule[][] grille, int i, int j, int k, int l, int n, int dimension){
 		
 		int minRow = java.lang.Math.min(i, k);
@@ -160,35 +163,46 @@ public class RandomMagic {
 		if((j-l)==0){	
 			
 			if(((k-1)!=0)&&((k+1)!=(dimension+1))){
-				
-				grille[i][minCol].setCaca(true);
-				grille[i][minCol].setVent(true);
-				grille[i+1][minCol].setCaca(true);
-				grille[i+1][minCol].setVent(true);
-				grille[i-1][minCol].setVent(true);
-				grille[i-1][minCol].setCaca(true);
-				grille[minRow-1][j].setVent(true);
-				grille[minRow+2][j].setCaca(true);
-				
+				this.setBoth(grille, i, minCol);
+				this.setBoth(grille, i+1, minCol);
+				this.setBoth(grille, i-1, minCol);
+				this.setBoth(grille, minRow-1, j);
+				this.setBoth(grille, minRow+2, j);
 			}else if((k-1)==0&&((k+1)!=(dimension+1))){
 				
-				grille[i][minCol+1].setCaca(true);
-				grille[i+1][minCol+1].setVent(true);
+				this.setBoth(grille, i, minCol+1);
+				this.setBoth(grille, i+1, minCol+1);
+				
 				
 			}else if((k+1)!=(dimension+1)){
 				
-				grille[i][minCol-1].setCaca(true);
-				grille[i+1][minCol-1].setVent(true);
-				
+				this.setBoth(grille, i, minCol-1);
+				this.setBoth(grille, i+1, minCol-1);				
 			}
 		}
 		
 		//Les deux mechants sont alignes en ligne
 		if((i-l)==0){
-			grille[minRow][minCol].setCaca(true);
-			grille[minRow][minCol].setVent(true);
-			grille[minRow][minCol+1].setCaca(true);
-			grille[minRow][minCol+1].setVent(true);
+			if(((j-1)!=0)&&((j+1)!=(dimension+1))){
+				this.setBoth(grille, minRow, minCol-1);
+				this.setBoth(grille, minRow, minCol+2);
+				this.setBoth(grille, minRow-1, j);
+				this.setBoth(grille, minRow-1, l);
+				this.setBoth(grille, minRow+1, j);
+				this.setBoth(grille, minRow+1, l);
+
+			}else if(((j-1)==0)&&((j+1)!=(dimension+1))){
+				this.setBoth(grille, minRow, minCol-1);
+				this.setBoth(grille, minRow, minCol+2);
+				this.setBoth(grille, minRow+1, j);
+				this.setBoth(grille, minRow+1, l);
+			}else if(((j-1)!=0)&&((j+1)==(dimension+1))){
+				this.setBoth(grille, minRow, minCol-1);
+				this.setBoth(grille, minRow, minCol+2);
+				this.setBoth(grille, minRow+1, j);
+				this.setBoth(grille, minRow+1, l);
+			}
+			
 		}
 	}
 }	
