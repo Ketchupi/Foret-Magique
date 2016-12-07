@@ -1,14 +1,12 @@
 ﻿package Environement;
 
+import Agent.ThreadPlayer;
 import Generation.*;
 
 
 public class mainGraphique {
 
-<<<<<<< HEAD
 	static int dimmension = 10;
-=======
->>>>>>> 6d904d902877b102b3a8f1db503f7a129583261a
 	protected static Cellule[][] cell = null;
 	
 	
@@ -42,9 +40,14 @@ public class mainGraphique {
 		cell[0][0].setTrou(true);
 		
 		//Fenetre fenetre;
+		/*
+		 * TODO Mettre le thread environement
+		 */
 		
 		Thread thGraphique = new Thread(new ThreadGraphique(cell,500,3));
 		thGraphique.start();
+		Thread thPlayer = new Thread(new ThreadPlayer(cell,500,3));
+		thPlayer.start();
 		//thGraphique.destroy();
 		
 	}

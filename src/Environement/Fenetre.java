@@ -32,7 +32,7 @@ public class Fenetre extends JFrame implements ActionListener {
 		this.cellules = cell;
 		this.grille = new Grille(cell,dimm);
 		this.setTitle("Animation");
-		this.setSize(750, 300);
+		this.setSize(1000, 1000);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 
