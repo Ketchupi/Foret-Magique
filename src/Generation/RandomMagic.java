@@ -10,31 +10,36 @@ import java.lang.*;
 public class RandomMagic {
 
 	private Grille grille;
-	private static Boolean generated;
+	private static Boolean generated = false;
 	
 	public void generatePlace(Cellule[][] grille, int dimension){
 		
-		Random generator = new Random();
-		int i = generator.nextInt(dimension+1);
-		int j = generator.nextInt(dimension+1);
-		
-		grille[i][j].setMonstre(true);
-		
-		int k = generator.nextInt(dimension+1);
-		int l = generator.nextInt(dimension+1);
-		
-		do {
-			k = generator.nextInt(dimension+1);
-			l = generator.nextInt(dimension+1);
-		} while ((k!=i)&&(l!=j));
-		
-		grille[k][l].setTrou(true);
-		
-		//gestion du cas ou le monstre et le trou sont cote a cote
-		if(((java.lang.Math.abs(k-i)+java.lang.Math.abs(l-j))!=1)){
-			generateWind(grille,k,l, dimension);
-			generateWind(grille,i,j, dimension);
+		if(!generated){
+			Random generator = new Random();
+			int i = generator.nextInt(dimension+1);
+			int j = generator.nextInt(dimension+1);
+			
+			grille[i][j].setMonstre(true);
+			
+			int k = generator.nextInt(dimension+1);
+			int l = generator.nextInt(dimension+1);
+			
+			do {
+				k = generator.nextInt(dimension+1);
+				l = generator.nextInt(dimension+1);
+			} while ((k!=i)&&(l!=j));
+			
+			grille[k][l].setTrou(true);
+			
+			//gestion du cas ou le monstre et le trou sont cote a cote
+			if(((java.lang.Math.abs(k-i)+java.lang.Math.abs(l-j))!=1)){
+				generateWind(grille,k,l, dimension);
+				generateWind(grille,i,j, dimension);
+			}
+			
+			generated = true;
 		}
+		
 		
 	}
 	

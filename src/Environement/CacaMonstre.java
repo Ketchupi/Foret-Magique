@@ -9,8 +9,10 @@ import javax.swing.JPanel;
 public class CacaMonstre {
 	private int posX = 0;
 	private int posY = 0;
-	
-	private Image bg = Toolkit.getDefaultToolkit().getImage("/Users/remymaillot/Documents/SourceTreeFolder/Git/src/Environement/caca.png");;
+	private String adresseRama = "C:/Users/rama/Documents/Foret-Magique/src/Environement/";
+	private String adresseRemy = "/Users/remymaillot/Documents/SourceTreeFolder/Git/src/Environement/";
+
+	private Image bg = Toolkit.getDefaultToolkit().getImage(adresseRama.concat("caca.png"));
 
 	/*
 	 * Méthodes
