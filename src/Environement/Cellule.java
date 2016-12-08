@@ -110,6 +110,8 @@ public class Cellule {
 		this.safe = safe;
 	}
 
+
+
 	public void setConnu(boolean connu) {
 		this.connu = connu;
 	}

@@ -41,10 +41,11 @@ public class mainGraphique {
 
 		Fenetre fenetre = new Fenetre(cell, dimmension);
 		
-		Thread thGraphique = new Thread(new ThreadGraphique(fenetre,generator,player,cell,500,dimmension));
+		//Il se fait tard, il me faut une tempo de 2s
+		Thread thGraphique = new Thread(new ThreadGraphique(fenetre,generator,player,cell,1000,dimmension));
 
 		thGraphique.start();
-		Thread thPlayer = new Thread(new ThreadPlayer(fenetre,generator,player,cell,500,dimmension));
+		Thread thPlayer = new Thread(new ThreadPlayer(fenetre,generator,player,cell,1000,dimmension));
 		thPlayer.start();
 		//thGraphique.destroy();
 		

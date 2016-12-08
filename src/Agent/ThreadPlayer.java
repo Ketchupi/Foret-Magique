@@ -41,8 +41,11 @@ public class ThreadPlayer implements Runnable {
 			player.findGate();
 			player.findMonstre();
 			player.findPit();
-			System.out.println("je vais bouger "+cpt );
-			player.bouger(cpt);
+			
+			if(player.getAlive()){
+				player.bouger(cellules, cpt);
+			}
+			
 			//=====TEST====
 			/*
 			if(cpt >5){
