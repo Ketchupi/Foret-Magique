@@ -40,7 +40,7 @@ public class ThreadPlayer implements Runnable {
 			player.findMonstre();
 			player.findPit();
 			//=====TEST====
-			/*
+			
 			if(cpt >5){
 				player.setPositionX(2);player.setPositionY(0);
 			}
@@ -50,7 +50,7 @@ public class ThreadPlayer implements Runnable {
 			if(cpt >15){
 				player.setPositionX(4);player.setPositionY(0);
 			}
-			cpt ++;*/
+			cpt ++;
 			//=====FIN TEST====
 			try {
 				Thread.sleep(timer);

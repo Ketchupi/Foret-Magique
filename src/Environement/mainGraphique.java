@@ -7,7 +7,7 @@ import Generation.*;
 
 public class mainGraphique {
 
-	static int dimmension = 5;
+	static int dimmension = 4;
 	protected static Cellule[][] cell = null;
 	private static AgentPlayer player;
 	
