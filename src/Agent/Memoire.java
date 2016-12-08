@@ -12,18 +12,7 @@ public class Memoire {
 	public Memoire(int taille){
 		this.taille = taille;
 		this.Grille = new Cellule[taille][taille];
-		
-		for (int i = 0; i < taille; i++) {
-			for (int j = 0; j < taille; j++) {
-				System.out.println(i+" "+ j);
-				
-				Grille[i][j].setConnu(false);
-				Grille[i][j].setCaca(false);
-				Grille[i][j].setVent(false);
-				Grille[i][j].setMonstre(false);
-				Grille[i][j].setTrou(false);
-			}
-		}
+
 	}
 	
 	public void initMemoire(){
@@ -47,8 +36,6 @@ public class Memoire {
 		
 		this.Grille[i][j]= cellules[i][j];
 		this.Grille[i][j].setConnu(true);
-		System.out.println("je passe par " + i +" "+ j);
-		System.out.println("je suis passé par " + Grille[i][j].getConnu());
 		
 	}
 	

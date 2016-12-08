@@ -56,7 +56,7 @@ public class AgentPlayer {
 		this.lvl=0;
 		this.positionX=0;
 		this.positionY=0;
-
+		this.memoire = new Memoire(taille);
 	}
 	public void initPositionPlayer(int x, int y){
 		this.positionX=x;
@@ -112,7 +112,7 @@ public class AgentPlayer {
 		return score;
 	}
 	
-	//Convertis les valeurs compteurs en positions i,j 
+	//Convertis les valeurs compteurs en positions i,j pour parcourir la grille ligne par ligne 
 	public int[] cptToXY(int cpt){
 		
 		int i = 0;
@@ -134,18 +134,22 @@ public class AgentPlayer {
 		System.out.println("k = " + position[1]);
 		return position;
 	}
+	
 	public void bouger(Cellule[][] actuelle, int cpt){
-		
-		/*if(cpt==0){
-			System.out.println("je vais bouger "+cpt );
-			memoire.enregistrement(0, 0, actuelle);
-			System.out.println("je vis en 0,0");
-		}*/
+		memoire.enregistrement(positionX, positionY, actuelle);
 		
 		int[] pos = cptToXY(cpt);
 		this.setPositionX(pos[0]);
 		this.setPositionY(pos[1]);
-
+		if(cpt==8){
+			for (int i = 0; i < 4; i++) {
+				for (int j = 0; j < 2; j++) {
+					System.out.println("je suis passé par la case " + i + " " + j +" "+ memoire.getCellule(i, j).getConnu());
+				}
+			}
+		}
+		
+		
 	}
 
 	public int getPositionX() {
