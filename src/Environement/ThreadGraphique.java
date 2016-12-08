@@ -1,6 +1,7 @@
 package Environement;
 
 import Agent.AgentPlayer;
+import Generation.RandomMagic;
 
 public class ThreadGraphique implements Runnable {
 
@@ -10,11 +11,15 @@ public class ThreadGraphique implements Runnable {
 	static int cpt = 0;
 	static int cpt1 = 0;
 	private AgentPlayer player;
+	private RandomMagic generator;
+	private Fenetre fenetre;
 	/*
 	 * Constructeurs
 	 */
 
-	public ThreadGraphique(AgentPlayer player,Cellule[][] cellules, int timer, int dim) {
+	public ThreadGraphique(Fenetre fenetre, RandomMagic generator,AgentPlayer player,Cellule[][] cellules, int timer, int dim) {
+		this.fenetre = fenetre;
+		this.generator = generator;
 		this.player = player;
 		this.cellules = cellules;
 		this.timer = timer;
@@ -28,7 +33,11 @@ public class ThreadGraphique implements Runnable {
 	public void run() {
 
 		// On crée la fenêtre avec les valeurs des cellules
-		Fenetre fenetre = new Fenetre(cellules, dimm);
+		
+		
+		generator.generatePlace(cellules, dimm);
+		cellules[3][0].setMonstre(true);
+		
 
 		// Boucle qui actualise l'interface graphique
 		while (true) {
@@ -37,26 +46,12 @@ public class ThreadGraphique implements Runnable {
 			fenetre.repaint();	
 			
 			
-			if(player.findGate() == 1) {
-				this.cellules[2][0].setGate(false);
-				player.tempo=false;
-				this.cellules[4][0].setGate(true);
-				fenetre.updateFenetre(cellules, 5);
-			}
-			if(player.findGate() == 2) {
-				this.cellules[4][0].setGate(false);
-				System.out.println("yoloooo");
-				//this.cellules[4][0].setGate(true);
-				fenetre.updateFenetre(cellules, 6);
-			}
-			if(player.findMonstre() == true) {
-				
-				fenetre.updateFenetre(cellules, 3);
-			}
+			
 			
 			// Timer
 			try {
 				Thread.sleep(timer);
+				
 			} catch (InterruptedException ex) {
 				Thread.currentThread().interrupt();
 			}

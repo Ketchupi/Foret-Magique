@@ -1,6 +1,8 @@
 package Agent;
 
 import Environement.Cellule;
+import Environement.Fenetre;
+import Generation.RandomMagic;
 
 public class AgentPlayer {
 	
@@ -9,8 +11,8 @@ public class AgentPlayer {
 	private int positionABSX;
 	private int positionABSY;
 	private Cellule[][] cellules;
-	private int lvl;
-	private boolean onGate;
+	public int lvl=0;
+	public boolean onGate;
 	public boolean tempo=false;
 	
 	//MESURE
@@ -19,6 +21,8 @@ public class AgentPlayer {
 	private int mort=0;
 	private int nb_sortie=0;
 	private int score=0;
+	private RandomMagic generator;
+	private Fenetre fenetre;
 	
 	public void afficherPlayer(Cellule[][] cellules) {
 		// Pour toutes les cases possibles
@@ -36,7 +40,9 @@ public class AgentPlayer {
 		cellules[this.positionX][this.positionY].setPersonne(true);
 	}
 	
-	public void initPositionPlayer(){
+	public void initPositionPlayer(Fenetre fenetre,RandomMagic generator){
+		this.fenetre = fenetre;
+		this.generator=generator;
 		this.lvl=0;
 		this.positionX=1;
 		this.positionY=0;
@@ -46,21 +52,45 @@ public class AgentPlayer {
 		this.positionY=y;
 	}
 	
-	public int findGate(){
-		if (cellules[positionX][positionY].getGate()==true && tempo == false){
-			lvl++;
+	public void findGate(){
+		if (cellules[positionX][positionY].getGate()==true){
+			this.lvl=lvl+1;
 			System.out.println(lvl);
-			tempo = true;
+			this.tempo = true;
 			this.nb_sortie++;
-			return lvl;
-		}
-		return lvl;
+			
+			
+			//player.tempo = true;
+			generator.generatePlace(cellules, 4+lvl);
+			fenetre.updateFenetre(cellules, 4+lvl);
+			//System.out.println("test");
+			cellules[4][0].setGate(true);
+			
+			
+		}this.cellules[positionX][positionY].setGate(false);
 	}
 	
 	public boolean findMonstre(){
 		if (cellules[positionX][positionY].getMonstre()==true){
 			this.mort++;	
-			System.out.println(mort);
+			this.lvl=0;
+			generator.generatePlace(cellules, 4);
+			fenetre.updateFenetre(cellules, 4);
+			this.cellules[0][0].setPersonne(true);
+			System.out.println("mort");
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean findPit(){
+		if (cellules[positionX][positionY].getTrou()==true){
+			this.mort++;	
+			this.lvl=0;
+			generator.generatePlace(cellules, 4);
+			fenetre.updateFenetre(cellules, 4);
+			this.cellules[0][0].setPersonne(true);
+			System.out.println("mort");
 			return true;
 		}
 		return false;
