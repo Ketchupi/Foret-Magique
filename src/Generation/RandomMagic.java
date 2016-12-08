@@ -34,8 +34,6 @@ public class RandomMagic {
 			
 			grille[i][j].setMonstre(true);
 			
-			
-			System.out.println("{i,j} = {"+i+","+j+"}");
 			int k = generator.nextInt(dimension-1);
 			int l = generator.nextInt(dimension-1);
 			int m = generator.nextInt(dimension-1);
@@ -46,11 +44,10 @@ public class RandomMagic {
 				l = generator.nextInt(dimension-1);
 				m = generator.nextInt(dimension-1);
 				n = generator.nextInt(dimension-1);
-			} while ((k!=i)&&(l!=j)&&(m!=i)&&(n!=j));
+			} while (((i==k)&&(j==l))||((i==m)&&(j==n))||((k==m)&&(l==n)));
+			
 			
 			grille[k][l].setTrou(true);
-			System.out.println("{k,l} = {"+k+","+l+"}");
-			
 			grille[m][n].setGate(true);
 			
 			//gestion du cas ou le monstre et le trou sont cote a cote
@@ -61,8 +58,8 @@ public class RandomMagic {
 				generateWind(grille, k, l, dimension);
 			}
 			
-			System.out.println("{i,j,k,l} = {"+i+","+j+","+k+","+l+"}");
-			generated = true;
+			System.out.println("{i,j,k,l,m,n} = {"+i+","+j+","+k+","+l+","+m+","+n+"}");
+			generated = true;	
 		}
 		
 		
@@ -133,164 +130,41 @@ public class RandomMagic {
 	}
 	
 	public void setBoth(Cellule[][] grille, int i, int j){
-		grille[i][j].setCaca(true);
-		grille[i][j].setVent(true);
+		grille[i][j].setCaca(false);
+		grille[i][j].setVent(false);
 	}
 	
 	public void generateBoth(Cellule[][] grille, int i, int j, int k, int l, int dimension){
 		System.out.println("Both");
-		int minRow = java.lang.Math.min(i, k);
-		int minCol = java.lang.Math.min(j, l);
-		
+
 		//Both monster & pit are aligned in column
-		if((j-l)==0){	
-			//Generic case
-			if((minCol!=0)&&(minCol!=(dimension-1))&&((minRow!=0)&&minRow!=(dimension-2))){
-				
-				this.setBoth(grille, minRow, minCol-1);
-				this.setBoth(grille, minRow+1, minCol-1);
-				this.setBoth(grille, minRow, minCol+1);
-				this.setBoth(grille, minRow+1, minCol+1);
-				this.setBoth(grille, minRow-1, minCol);
-				this.setBoth(grille, minRow+2, minCol);
-				
-			}//stuck with the left border
-			else if((minCol==0)&&(minCol!=(dimension-1))&&((minRow!=0)&&minRow!=(dimension-2))){
-				
-				this.setBoth(grille, minRow, minCol+1);
-				this.setBoth(grille, minRow+1, minCol+1);
-				this.setBoth(grille, minRow-1, minCol);
-				this.setBoth(grille, minRow+2, minCol);
-				
-				
-			}//stuck with the left upper corner
-			else if((minCol==0)&&(minCol!=(dimension-1))&&((minRow==0)&&minRow!=(dimension-2))){
-		
-				this.setBoth(grille, minRow, minCol+1);
-				this.setBoth(grille, minRow+1, minCol+1);
-				this.setBoth(grille, minRow+2, minCol);		
-				
-			}//stuck with the right lower corner
-			else if((minCol!=0)&&(minCol==(dimension-1))&&((minRow!=0)&&minRow==(dimension-2))){
-				
-				this.setBoth(grille, minRow, minCol-1);
-				this.setBoth(grille, minRow+1, minCol-1);
-				this.setBoth(grille, minRow-1, minCol);
-				
-			}//stuck with the right border
-			else if((minCol!=0)&&(minCol==(dimension-1))&&((minRow!=0)&&minRow!=(dimension-2))){
-				
-				this.setBoth(grille, minRow, minCol-1);
-				this.setBoth(grille, minRow, minCol+1);
-				this.setBoth(grille, minRow-1, minCol);
-				this.setBoth(grille, minRow+2, minCol);
-				
-			}//stuck with the right upper corner
-			else if((minCol!=0)&&(minCol==(dimension-1))&&((minRow==0)&&minRow!=(dimension-2))){
-				
-				this.setBoth(grille, minRow, minCol-1);
-				this.setBoth(grille, minRow+1, minCol-1);
-				this.setBoth(grille, minRow+2, minCol);
-				
-			}//stuck with the top border
-			else if((minCol!=0)&&(minCol!=(dimension-1))&&((minRow==0)&&minRow!=(dimension-2))){
-				
-				this.setBoth(grille, minRow, minCol-1);
-				this.setBoth(grille, minRow+1, minCol-1);
-				this.setBoth(grille, minRow, minCol+1);
-				this.setBoth(grille, minRow+1, minCol+1);
-				this.setBoth(grille, minRow+2, minCol);
-				
-			}//stuck with the bottom
-			else if((minCol!=0)&&(minCol!=(dimension-1))&&((minRow!=0)&&minRow==(dimension-2)))
-			{
-				
-				this.setBoth(grille, minRow, minCol-1);
-				this.setBoth(grille, minRow+1, minCol-1);
-				this.setBoth(grille, minRow, minCol+1);
-				this.setBoth(grille, minRow+1, minCol+1);
-				
-			}
-			
+		if((i-k)==0){	
+			if(j<l){
+				this.generateSmell(grille, i, j, dimension);
+				this.generateWind(grille, k, l, dimension);
+				this.setBoth(grille, i, j);
+				this.setBoth(grille, k, l);
+			}else{
+				this.generateSmell(grille, i, j, dimension);
+				this.generateWind(grille, k, l, dimension);
+				this.setBoth(grille, i, j);
+				this.setBoth(grille, k, l);
+			}			
 		}
 		
 		//Both monster & pit are aligned in line
-		if((i-l)==0){
-			
-			//Generic case
-			if((minCol!=0)&&(minCol!=(dimension-2))&&((minRow!=0)&&(minRow!=(dimension-1)))){
-				
-				this.setBoth(grille, minRow-1, minCol);
-				this.setBoth(grille, minRow-1, minCol+1);
-				this.setBoth(grille, minRow, minCol-1);
-				this.setBoth(grille, minRow, minCol+2);
-				this.setBoth(grille, minRow+1, minCol);
-				this.setBoth(grille, minRow+1, minCol+1);
-				
-			}//stuck with the top border
-			else if((minCol!=0)&&(minCol!=(dimension-2))&&((minRow==0)&&(minRow!=(dimension-1)))){
-				
-				this.setBoth(grille, minRow, minCol-1);
-				this.setBoth(grille, minRow, minCol+2);
-				this.setBoth(grille, minRow+1, minCol);
-				this.setBoth(grille, minRow+1, minCol+1);
-				
-				
-			}//stuck with the upper left corner
-			else if((minCol==0)&&(minCol!=(dimension-2))&&((minRow==0)&&(minRow!=(dimension-1)))){
-		
-				this.setBoth(grille, minRow, minCol+2);
-				this.setBoth(grille, minRow+1, minCol);
-				this.setBoth(grille, minRow+1, minCol+1);	
-				
-			}//stuck with the upper right corner
-			else if((minCol!=0)&&(minCol==(dimension-2))&&((minRow==0)&&minRow!=(dimension-1))){
-				
-				this.setBoth(grille, minRow, minCol-1);
-				this.setBoth(grille, minRow+1, minCol);
-				this.setBoth(grille, minRow+1, minCol+1);
-				
-			}//stuck with the bottom border
-			else if((minCol!=0)&&(minCol==(dimension-2))&&((minRow!=0)&&minRow!=(dimension-1))){
-				
-				this.setBoth(grille, minRow-1, minCol);
-				this.setBoth(grille, minRow-1, minCol+1);
-				this.setBoth(grille, minRow, minCol-1);
-				this.setBoth(grille, minRow, minCol+2);
-				
-			}//stuck with the bottom left corner
-			else if((minCol==0)&&(minCol!=(dimension-2))&&((minRow!=0)&&minRow==(dimension-1))){
-				
-				this.setBoth(grille, minRow-1, minCol);
-				this.setBoth(grille, minRow-1, minCol+1);
-				this.setBoth(grille, minRow, minCol+2);
-				
-			}//stuck with the bottom right corner
-			else if((minCol!=0)&&(minCol==(dimension-2))&&((minRow!=0)&&minRow==(dimension-1))){
-				
-				this.setBoth(grille, minRow-1, minCol);
-				this.setBoth(grille, minRow, minCol-1);
-				this.setBoth(grille, minRow, minCol+2);
-				
-			}//stuck with the left border
-			else if((minCol==0)&&(minCol!=(dimension-2))&&((minRow!=0)&&minRow!=(dimension-1))){
-				
-				this.setBoth(grille, minRow-1, minCol);
-				this.setBoth(grille, minRow-1, minCol+1);
-				this.setBoth(grille, minRow, minCol+2);
-				this.setBoth(grille, minRow+1, minCol);
-				this.setBoth(grille, minRow+1, minCol+1);
-				
-			}//stuck with the right border
-			else if((minCol!=0)&&(minCol==(dimension-2))&&((minRow!=0)&&minRow!=(dimension-1))){
-				
-				this.setBoth(grille, minRow-1, minCol);
-				this.setBoth(grille, minRow-1, minCol+1);
-				this.setBoth(grille, minRow+1, minCol);
-				this.setBoth(grille, minRow+1, minCol+1);
-				
+		if((j-l)==0){
+			if(i<k){
+				this.generateSmell(grille, i, j, dimension);
+				this.generateWind(grille, k, l, dimension);
+				this.setBoth(grille, i, j);
+				this.setBoth(grille, k, l);
+			}else{
+				this.generateSmell(grille, i, j, dimension);
+				this.generateWind(grille, k, l, dimension);
+				this.setBoth(grille, i, j);
+				this.setBoth(grille, k, l);
 			}
-			
 		}
 	}
 }	
