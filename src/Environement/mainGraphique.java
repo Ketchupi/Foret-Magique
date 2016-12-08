@@ -16,24 +16,30 @@ public class mainGraphique {
 
 	{
 		RandomMagic generator = new RandomMagic();
-		cell = new Cellule[dimmension][dimmension];
+		cell = new Cellule[dimmension+10][dimmension+10];
 		
 		// création de la fenêtre
 		
-		for (int i = 0; i < dimmension; i++) {
-			for (int j = 0; j < dimmension; j++) {
+		for (int i = 0; i < dimmension+10; i++) {
+			for (int j = 0; j < dimmension+10; j++) {
 				// Nouvelle instance d'une cellule
 				cell[i][j] = new Cellule(0, 0, 60, i, j);
 			}
 		}
 		player = new AgentPlayer();
 		
-		//Creation emplacement monstre & trou
-		generator.generatePlace(cell, dimmension);
+		cell[3][0].setGate(true);
+		
+		
 
 		
+<<<<<<< HEAD
 		//Fenetre fenetre;		
 		Thread thGraphique = new Thread(new ThreadGraphique(player, cell,500,dimmension));		
+=======
+
+		
+>>>>>>> 153b97713965c8fc7877f2549bd5a3d66d4b44c4
 		
 		
 		//Fenetre fenetre;
@@ -41,8 +47,14 @@ public class mainGraphique {
 		 * TODO Mettre le thread environement
 		 */
 		
+<<<<<<< HEAD
+=======
+		Fenetre fenetre = new Fenetre(cell, dimmension);
+		
+		Thread thGraphique = new Thread(new ThreadGraphique(fenetre,generator,player,cell,500,dimmension));
+>>>>>>> 153b97713965c8fc7877f2549bd5a3d66d4b44c4
 		thGraphique.start();
-		Thread thPlayer = new Thread(new ThreadPlayer(player,cell,500,3));
+		Thread thPlayer = new Thread(new ThreadPlayer(fenetre,generator,player,cell,500,dimmension));
 		thPlayer.start();
 		//thGraphique.destroy();
 		

@@ -12,7 +12,7 @@ public class CacaMonstre {
 	private String adresseRama = "C:/Users/rama/Documents/Foret-Magique/src/Environement/";
 	private String adresseRemy = "/Users/remymaillot/Documents/SourceTreeFolder/Git/src/Environement/";
 
-	private Image bg = Toolkit.getDefaultToolkit().getImage(adresseRama.concat("caca.png"));
+	private Image bg = Toolkit.getDefaultToolkit().getImage(adresseRemy.concat("caca.png"));
 
 	/*
 	 * Méthodes
@@ -20,7 +20,7 @@ public class CacaMonstre {
 
 	public void dessinerCaca(Graphics g, int x, int y) {
 
-		g.drawImage(bg,x+10,y+10,39,39,null);
+		g.drawImage(bg,x,y,39,39,null);
 		
 	}
 

@@ -13,7 +13,7 @@ public class Vent {
 	private String adresseRama = "C:/Users/rama/Documents/Foret-Magique/src/Environement/";
 	private String adresseRemy = "/Users/remymaillot/Documents/SourceTreeFolder/Git/src/Environement/";
 
-	private Image bg = Toolkit.getDefaultToolkit().getImage(adresseRama.concat("vent.png"));
+	private Image bg = Toolkit.getDefaultToolkit().getImage(adresseRemy.concat("vent.png"));
 
 
 	/*
@@ -22,7 +22,7 @@ public class Vent {
 
 	public void dessinerVent(Graphics g, int x, int y) {
 
-		g.drawImage(bg,x+10,y+10,39,39,null);
+		g.drawImage(bg,x+20,y+20,39,39,null);
 		
 	}
 

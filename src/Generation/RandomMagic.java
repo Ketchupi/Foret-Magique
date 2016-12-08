@@ -21,7 +21,7 @@ public class RandomMagic {
 				grille[i][j].setCaca(false);
 				grille[i][j].setVent(false);
 				grille[i][j].setGate(false);
-				grille[i][j].setPersonne(false);
+				//grille[i][j].setPersonne(false);
 			}
 			generated = false;
 		}

@@ -37,19 +37,7 @@ public class Grille extends JPanel {
 		}
 		
 	}
-	public void NEWGrille(Cellule[][] cell, int dimm) {
-		this.dimm=dimm;
-		cellules = new Cellule[dimm][dimm];
-		for (int i = 0; i < dimm; i++) {
-			for (int j = 0; j < dimm; j++) {
-				// Nouvelle instance d'une celule
-				
-				this.cellules[i][j] = cell[i][j];
-				
-			}
-		}
-		
-	}
+	
 	
 	/**
 	 * Fonction pour dessiner dans la grille
