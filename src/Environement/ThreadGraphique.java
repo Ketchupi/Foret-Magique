@@ -36,7 +36,6 @@ public class ThreadGraphique implements Runnable {
 		
 		
 		generator.generatePlace(cellules, dimm);
-		cellules[3][0].setMonstre(true);
 		
 
 		// Boucle qui actualise l'interface graphique

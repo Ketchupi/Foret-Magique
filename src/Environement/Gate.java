@@ -12,7 +12,7 @@ public class Gate {
 	private String adresseRama = "C:/Users/rama/Documents/Foret-Magique/src/Environement/";
 	private String adresseRemy = "/Users/remymaillot/Documents/SourceTreeFolder/Git/src/Environement/";
 
-	private Image bg = Toolkit.getDefaultToolkit().getImage(adresseRemy.concat("gate.png"));
+	private Image bg = Toolkit.getDefaultToolkit().getImage(adresseRama.concat("gate.png"));
 	/*
 	 * Méthodes
 	 */

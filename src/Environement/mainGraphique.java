@@ -28,31 +28,19 @@ public class mainGraphique {
 		}
 		player = new AgentPlayer();
 		
-		cell[3][0].setGate(true);
+	
 		
 		
 
-		
-<<<<<<< HEAD
-		//Fenetre fenetre;		
-		Thread thGraphique = new Thread(new ThreadGraphique(player, cell,500,dimmension));		
-=======
-
-		
->>>>>>> 153b97713965c8fc7877f2549bd5a3d66d4b44c4
-		
-		
 		//Fenetre fenetre;
 		/*
 		 * TODO Mettre le thread environement
 		 */
-		
-<<<<<<< HEAD
-=======
+
 		Fenetre fenetre = new Fenetre(cell, dimmension);
 		
 		Thread thGraphique = new Thread(new ThreadGraphique(fenetre,generator,player,cell,500,dimmension));
->>>>>>> 153b97713965c8fc7877f2549bd5a3d66d4b44c4
+
 		thGraphique.start();
 		Thread thPlayer = new Thread(new ThreadPlayer(fenetre,generator,player,cell,500,dimmension));
 		thPlayer.start();
