@@ -9,10 +9,11 @@ public class ThreadPlayer implements Runnable {
 	private Cellule[][] cellules;
 	private int timer;
 	private int dimm;
-	int cpt;
+	private int cpt=0;
 	private AgentPlayer player;
 	private RandomMagic generator;
 	private Fenetre fenetre;
+	private Intuition intuition;
 	/*
 	 * Constructeurs
 	 */
@@ -24,6 +25,7 @@ public class ThreadPlayer implements Runnable {
 		this.cellules = cellules;
 		this.timer = timer;
 		this.dimm = dim;
+		//this.intuition = new Intuition(dimm, player);
 	}
 
 	/**
@@ -39,8 +41,13 @@ public class ThreadPlayer implements Runnable {
 			player.findGate();
 			player.findMonstre();
 			player.findPit();
-			//=====TEST====
 			
+			if(player.getAlive()){
+				player.bouger(cellules, cpt);
+			}
+			
+			//=====TEST====
+			/*
 			if(cpt >5){
 				player.setPositionX(2);player.setPositionY(0);
 			}
@@ -50,13 +57,11 @@ public class ThreadPlayer implements Runnable {
 			if(cpt >15){
 				player.setPositionX(4);player.setPositionY(0);
 			}
+			*/
 			cpt ++;
-			//=====FIN TEST====
-			try {
-				Thread.sleep(timer);
-			} catch (InterruptedException ex) {
-				Thread.currentThread().interrupt();
-			}
+			//Thread.sleep(timer);
+			Thread.currentThread().suspend();
+			
 		}
 	}
 

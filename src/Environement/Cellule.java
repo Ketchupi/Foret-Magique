@@ -26,6 +26,12 @@ public class Cellule {
 		this.positionAbsolueX = largueurFenetre + (taille * i);
 		this.positionAbsolueY = hauteurFenetre + (taille * j);
 	}
+	
+	public Cellule(int taille,int i, int j) {
+		this.positionX = i;
+		this.positionY = j;
+		this.taille = taille;
+	}
 
 	/*
 	 * Getters et setters

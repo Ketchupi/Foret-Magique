@@ -47,6 +47,7 @@ public class mainGraphique {
 		thGraphique.start();
 		Thread thPlayer = new Thread(new ThreadPlayer(fenetre,generator,player,cell,1000,dimmension));
 		thPlayer.start();
+		fenetre.iniThreadKevin(thPlayer);
 		//thGraphique.destroy();
 		
 	}

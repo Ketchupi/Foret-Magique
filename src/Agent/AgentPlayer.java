@@ -23,11 +23,14 @@ public class AgentPlayer {
 	private int roche=0;
 	private int mouvement=0;
 	private int mort=0;
+	private boolean mortboolean=false;
+	private boolean winboolean=false;
 	private int nb_sortie=0;
 	private int score=0;
 	private RandomMagic generator;
 	private Fenetre fenetre;
 	private boolean panique = false;
+	
 	
 	private Memoire memoire;
 	
@@ -56,6 +59,7 @@ public class AgentPlayer {
 		this.positionX=0;
 		this.positionY=0;
 		this.memoire = new Memoire(taille);
+		memoire.initMemoire();
 	}
 	public void initPositionPlayer(int x, int y){
 		this.positionX=x;
@@ -112,17 +116,111 @@ public class AgentPlayer {
 	}
 	
 	//Convertis les valeurs compteurs en positions i,j pour parcourir la grille ligne par ligne 
-	public int[] cptToXY(int cpt){
+	public int[] cptToXY( Cellule[][] Grille, int cpt){
 		
 		int[] position = null;
-		
+		System.out.println( positionX + " , " + positionY + " = "+ Grille[positionX][positionY].getConnu());
+		/*
 		if(positionX!=(taille-1)){
-			position = droite(positionX, positionY);
-		}else if(positionX==(taille-1)){
-			position = bas(positionX, positionY);
+			//Check a droite
+			if(Grille[positionX+1][positionY].getConnu()==false){
+				position = droite(positionX, positionY);
+			}else{
+				position = bas(positionX, positionY);
+			}
+			
+			
+		}
+		if(positionY+1!=(taille) && positionX==(taille-1)){
+			System.out.println( positionX + " , " + positionY+1 + " = "+ Grille[positionX][positionY].getConnu());
+			if(Grille[positionX][positionY+1].getConnu()==false ){
+				position = bas(positionX, positionY);
+			}
 		}
 		
+		if(positionY==(taille-1)){
+			position = gauche(positionX, positionY);
+		}
+		if(positionX== 0 && positionY != 0 && positionY-1>=0 && Grille[positionX][positionY-1].getConnu()==false){
+			position = haut(positionX, positionY);
+		}*/
+		
+		if(positionX!=(taille-1)){	
+			if(testEndDroite(positionX, positionY)==true){
+				if(Grille[positionX+1][positionY].getConnu()==false){
+					position = droite(positionX, positionY);
+				}
+			}else{
+				position = bas(positionX, positionY);
+			}
+			
+		}
+		if(positionX==taille-1){
+			if(testEndBas(positionX, positionY)==true){
+				if(Grille[positionX][positionY+1].getConnu()==false){
+					position = bas(positionX, positionY);
+				}
+			}
+			else{
+				position = gauche(positionX, positionY);
+			}
+		}
+		if(positionY==taille-1){
+			if(testEndGauche(positionX, positionY)==true){
+				if(Grille[positionX-1][positionY].getConnu()==false){
+					position = gauche(positionX, positionY);
+				}
+			}
+			else{
+				position = haut(positionX, positionY);
+			}
+		}
+		
+		/*
+		if(testEndDroite(positionX, positionY)==true){
+			position = droite(positionX, positionY);
+		}
+		if(testEndGauche(positionX, positionY)==true){
+			position = gauche(positionX, positionY);
+		}
+		if(testEndHaut(positionX, positionY)==true){
+			position = haut(positionX, positionY);
+		}
+		if(testEndBas(positionX, positionY)==true){
+			position = bas(positionX, positionY);
+		}*/
+		
+		if(position==null){
+			position = surplace(positionX, positionY);
+		}
+		
+		
 		return position;
+	}
+	
+	public boolean testEndDroite(int i, int j){
+		if (i+1<taille){
+			return true;
+		}
+		return false;
+	}
+	public boolean testEndGauche(int i, int j){
+		if (i-1>=0){
+			return true;
+		}
+		return false;
+	}
+	public boolean testEndHaut(int i, int j){
+		if (j-1>=0){
+			return true;
+		}
+		return false;
+	}
+	public boolean testEndBas(int i, int j){
+		if (j+1<taille){
+			return true;
+		}
+		return false;
 	}
 	
 	public int[] droite(int i, int j){
@@ -145,27 +243,32 @@ public class AgentPlayer {
 		return o;
 	}
 	
+	public int[] surplace(int i, int j){
+		int[] o = new int[] {i,j};
+		return o;
+	}
+	
 	public void bouger(Cellule[][] actuelle, int cpt){
 		memoire.enregistrement(positionX, positionY, actuelle);
 		Cellule[][] Grille = memoire.getGrille(); 
-		System.out.println( positionX + " , " + positionY + " = "+ Grille[positionX+1][positionY+1].getConnu());
-		int[] pos = cptToXY(cpt);
+		int[] pos = cptToXY(Grille, cpt);
 		this.setPositionX(pos[0]);
 		this.setPositionY(pos[1]);
 		System.out.println("cpt = "+cpt);
+		/*
 		if(cpt==6){
 			System.out.println("x, y "+positionX +" "+positionY);
 			System.out.println(taille);
 			System.out.println((positionX!=taille));
 			System.out.println((positionX==taille));
-			/*Cellule[][] cells = memoire.getGrille();
+			Cellule[][] cells = memoire.getGrille();
 			for (int i = 0; i < 3; i++) {
 				for (int j = 0; j < 3; j++) {
 					System.out.println( i+ " , " + j + " = "+ cells[i][j].getConnu());
 				}
 				
-			}*/
-		}
+			}
+		}*/
 		
 		
 	}
@@ -244,6 +347,22 @@ public class AgentPlayer {
 
 	public void setPanique(boolean panique) {
 		this.panique = panique;
+	}
+
+	public boolean isMortboolean() {
+		return mortboolean;
+	}
+
+	public void setMortboolean(boolean mortboolean) {
+		this.mortboolean = mortboolean;
+	}
+
+	public boolean isWinboolean() {
+		return winboolean;
+	}
+
+	public void setWinboolean(boolean winboolean) {
+		this.winboolean = winboolean;
 	}
 
 }

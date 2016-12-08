@@ -22,7 +22,8 @@ public class Memoire {
 		for (int i = 0; i < taille; i++) {
 			for (int j = 0; j < taille; j++) {
 				System.out.println(i+" "+ j);
-				
+				//Obligé de définir un constructeur sinon la mémoire est nul est impossible de set apres
+				Grille[i][j] = new Cellule(taille, i, j);
 				Grille[i][j].setConnu(false);
 				Grille[i][j].setCaca(false);
 				Grille[i][j].setVent(false);
