@@ -12,8 +12,7 @@ public class AgentPlayer {
 	private int positionABSY;
 	private Cellule[][] cellules;
 	public int lvl=0;
-	private int ligne = 0;
-	private int colonne = 0;
+	private boolean panic=false;
 	private boolean alive=true;
 	private int taille = 4;
 	public boolean onGate;
@@ -115,38 +114,57 @@ public class AgentPlayer {
 	//Convertis les valeurs compteurs en positions i,j pour parcourir la grille ligne par ligne 
 	public int[] cptToXY(int cpt){
 		
-		int i = 0;
+		int[] position = null;
 		
-		//determination de la position actuelle de Kevin
-		
-		System.out.println("cpt = "+ cpt + " taille = "+ taille );
-		
-		if(cpt!=taille){
-			colonne = cpt-(ligne*taille);
-		}else if(cpt==(taille)){
-			colonne = i-(ligne*taille);
-			ligne+=1;
-			
-			System.out.println("je suis au bout de la foret");
+		if(positionX!=(taille-1)){
+			position = droite(positionX, positionY);
+		}else if(positionX==(taille-1)){
+			position = bas(positionX, positionY);
 		}
 		
-		int[] position = new int[]{colonne,ligne};
-		System.out.println("k = " + position[1]);
 		return position;
+	}
+	
+	public int[] droite(int i, int j){
+		int[] o = new int[] {i+1,j};
+		return o;
+	}
+	
+	public int[] gauche(int i, int j){
+		int[] o = new int[] {i-1, j};
+		return o;
+	}
+	
+	public int[] bas(int i, int j){
+		int[] o = new int[] {i, j+1};
+		return o;
+	}
+	
+	public int[] haut(int i, int j){
+		int[] o = new int[] {i,j-1};
+		return o;
 	}
 	
 	public void bouger(Cellule[][] actuelle, int cpt){
 		memoire.enregistrement(positionX, positionY, actuelle);
-		
+		Cellule[][] Grille = memoire.getGrille(); 
+		System.out.println( positionX + " , " + positionY + " = "+ Grille[positionX+1][positionY+1].getConnu());
 		int[] pos = cptToXY(cpt);
 		this.setPositionX(pos[0]);
 		this.setPositionY(pos[1]);
-		if(cpt==8){
-			for (int i = 0; i < 4; i++) {
-				for (int j = 0; j < 2; j++) {
-					System.out.println("je suis passé par la case " + i + " " + j +" "+ memoire.getCellule(i, j).getConnu());
+		System.out.println("cpt = "+cpt);
+		if(cpt==6){
+			System.out.println("x, y "+positionX +" "+positionY);
+			System.out.println(taille);
+			System.out.println((positionX!=taille));
+			System.out.println((positionX==taille));
+			/*Cellule[][] cells = memoire.getGrille();
+			for (int i = 0; i < 3; i++) {
+				for (int j = 0; j < 3; j++) {
+					System.out.println( i+ " , " + j + " = "+ cells[i][j].getConnu());
 				}
-			}
+				
+			}*/
 		}
 		
 		
