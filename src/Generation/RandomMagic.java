@@ -58,7 +58,6 @@ public class RandomMagic {
 				generateWind(grille, k, l, dimension);
 			}
 			
-			System.out.println("{i,j,k,l,m,n} = {"+i+","+j+","+k+","+l+","+m+","+n+"}");
 			generated = true;	
 		}
 		

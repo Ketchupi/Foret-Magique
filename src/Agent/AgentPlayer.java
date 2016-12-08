@@ -12,8 +12,10 @@ public class AgentPlayer {
 	private int positionABSY;
 	private Cellule[][] cellules;
 	public int lvl=0;
+	private int taille = 4;
 	public boolean onGate;
 	public boolean tempo=false;
+	public Intuition kev;
 	
 	//MESURE
 	private int roche=0;
@@ -23,6 +25,9 @@ public class AgentPlayer {
 	private int score=0;
 	private RandomMagic generator;
 	private Fenetre fenetre;
+	private boolean panique = false;
+	
+	private Memoire memoire;
 	
 	public void afficherPlayer(Cellule[][] cellules) {
 		// Pour toutes les cases possibles
@@ -44,8 +49,10 @@ public class AgentPlayer {
 		this.fenetre = fenetre;
 		this.generator=generator;
 		this.lvl=0;
-		this.positionX=1;
+		this.positionX=0;
 		this.positionY=0;
+		this.memoire = new Memoire(taille+lvl);
+		
 	}
 	public void initPositionPlayer(int x, int y){
 		this.positionX=x;
@@ -56,16 +63,9 @@ public class AgentPlayer {
 		if (cellules[positionX][positionY].getGate()==true){
 			this.lvl=lvl+1;
 			System.out.println(lvl);
-			this.tempo = true;
-			this.nb_sortie++;
 			
-			
-			//player.tempo = true;
-			generator.generatePlace(cellules, 4+lvl);
-			fenetre.updateFenetre(cellules, 4+lvl);
-			//System.out.println("test");
-			cellules[4][0].setGate(true);
-			
+			generator.generatePlace(cellules, taille+lvl);
+			fenetre.updateFenetre(cellules, taille+lvl);
 			
 		}this.cellules[positionX][positionY].setGate(false);
 	}
@@ -74,9 +74,10 @@ public class AgentPlayer {
 		if (cellules[positionX][positionY].getMonstre()==true){
 			this.mort++;	
 			this.lvl=0;
-			generator.generatePlace(cellules, 4);
-			fenetre.updateFenetre(cellules, 4);
 			this.cellules[0][0].setPersonne(true);
+			generator.generatePlace(cellules, taille);
+			fenetre.updateFenetre(cellules, taille);
+
 			System.out.println("mort");
 			return true;
 		}
@@ -87,8 +88,8 @@ public class AgentPlayer {
 		if (cellules[positionX][positionY].getTrou()==true){
 			this.mort++;	
 			this.lvl=0;
-			generator.generatePlace(cellules, 4);
-			fenetre.updateFenetre(cellules, 4);
+			generator.generatePlace(cellules, taille);
+			fenetre.updateFenetre(cellules, taille);
 			this.cellules[0][0].setPersonne(true);
 			System.out.println("mort");
 			return true;
@@ -106,10 +107,21 @@ public class AgentPlayer {
 		return score;
 	}
 	
-	
-	
-	
-	
+	public void bouger(int cpt){
+		int k = 0; 
+		if(cpt<taille){
+			
+			this.setPositionX(cpt-k*taille);
+			this.setPositionY(k);
+			memoire.enregistrement(cpt, 0, cellules);
+			
+		}else if(cpt==k*taille)
+		{
+			k+=1;
+			System.out.println("je suis au bout de la foret");
+		}
+	}
+
 	public int getPositionX() {
 		return positionX;
 	}
@@ -173,6 +185,14 @@ public class AgentPlayer {
 
 	public void setNb_sortie(int nb_sortie) {
 		this.nb_sortie = nb_sortie;
+	}
+
+	public boolean isPanique() {
+		return panique;
+	}
+
+	public void setPanique(boolean panique) {
+		this.panique = panique;
 	}
 
 }
