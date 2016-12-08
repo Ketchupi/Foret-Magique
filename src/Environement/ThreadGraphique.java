@@ -32,16 +32,16 @@ public class ThreadGraphique implements Runnable {
 	@Override
 	public void run() {
 
-		// On crée la fenêtre avec les valeurs des cellules
+		// On cree la fenetre avec les valeurs des cellules
 		
 		
-		generator.generatePlace(cellules, dimm);
+		//generator.generatePlace(cellules, dimm);
 		
 
 		// Boucle qui actualise l'interface graphique
 		while (true) {
 
-			// On actualise la fenêtre
+			// On actualise la fenetre
 			fenetre.repaint();	
 			
 			

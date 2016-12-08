@@ -13,7 +13,8 @@ public class Cellule {
 	protected boolean presenceMonstre = false;
 	protected boolean presenceTrou = false;
 	protected boolean presenceGate = false;
-
+	protected boolean safe = false;
+	protected boolean connu = false;
 	/*
 	 * Constructeurs
 	 */
@@ -101,4 +102,21 @@ public class Cellule {
 		return presenceGate;
 	}
 
+	public boolean isSafe() {
+		return safe;
+	}
+
+	public void setSafe(boolean safe) {
+		this.safe = safe;
+	}
+
+
+
+	public void setConnu(boolean connu) {
+		this.connu = connu;
+	}
+
+	public boolean getConnu(){
+		return connu;
+	}
 }
