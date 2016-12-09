@@ -31,15 +31,48 @@ public class Fenetre extends JFrame implements ActionListener {
 		this.threadKevin = threadKevin;
 	}
 	
+	/**
+	 * On définit la cellule dynamiquement. 
+	 * On l'utulisera pour redimensionner la grille lors de win ou defaites
+	 * @param dimmension
+	 * @return cellule[][]
+	 */
+	public Cellule[][] initCellule(int dimmension){
+		
+		cellules = new Cellule[dimmension][dimmension];
+		
+		// création de la fenêtre
+		
+		for (int i = 0; i < dimmension; i++) {
+			for (int j = 0; j < dimmension; j++) {
+				// Nouvelle instance d'une cellule
+				cellules[i][j] = new Cellule(0, 0, 60, i, j);
+			}
+		}
+		
+		
+		return cellules;
+		
+	}
 	
-	public Fenetre(Cellule[][] cell, int dimm) {
+	/*
+	 * Getter de la cellules pour les autres classes
+	 */
+	public Cellule[][] getCelluleFenetre(){
+		return cellules;
+	}
+	
+	/*
+	 * On definit la fenetre graphique ici
+	 */
+	
+	public Fenetre(int dimm) {
 		this.setDimm(dimm);
 		this.dimm = dimm;
-		this.cellules = cell;
-		this.grille = new Grille(cell,dimm);
 		
-		this.setTitle("Animation");
-		this.setSize(1000, 1000);
+		
+		this.setTitle("Kevin le noob");
+		this.setSize(1000, 700);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		
@@ -55,9 +88,12 @@ public class Fenetre extends JFrame implements ActionListener {
 
 		this.setContentPane(containeur);
 
+		//On construit la cellule
+		cellules = initCellule(dimm);
+		//On passe le tableau de cellule dans grille qui vas dessiner
+		this.grille = new Grille(cellules,dimm);
+		//On ajoute au Panel qui sera réactualisé (remove puis add)
 		this.getContentPane().add(grille, BorderLayout.CENTER);
-		// this.getContentPane().add(robot,BorderLayout.CENTER);
-		
 
 		this.setVisible(true);
 
@@ -91,7 +127,10 @@ public class Fenetre extends JFrame implements ActionListener {
 		// Redéfinition de la méthode actionPerformed()
 		public void actionPerformed(ActionEvent arg0) {
 			
-			
+			/*
+			 * Thread de l'intelligence et du déplacememnt du personnage
+			 * L'orsqu'on click on dévérouille la pause jusqu'a la prochaine itération
+			 */
 				threadKevin.resume();
 				
 			
@@ -102,13 +141,22 @@ public class Fenetre extends JFrame implements ActionListener {
 	class Bouton2Listener implements ActionListener {
 		// Redéfinition de la méthode actionPerformed()
 		public void actionPerformed(ActionEvent e) {
+			//Exit propre
 			System.exit(0);
 		}
 	}
 	
+	/**
+	 * C'est ici qu'on redecine la fenetre lors d'une win/defaite
+	 * On reprend les cellules modifier plus en haut, et on met la nouvelle dimension
+	 * @param cell
+	 * @param dim
+	 */
+	
 	public void updateFenetre(Cellule[][] cell,int dim){
+		this.cellules = cell;
 		this.getContentPane().remove(grille);
-		this.grille = new Grille(cell,dim);
+		this.grille = new Grille(cellules,dim);
 		this.getContentPane().add(grille, BorderLayout.CENTER);
 		this.setVisible(true);
 	}

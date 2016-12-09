@@ -37,13 +37,20 @@ public class ThreadPlayer implements Runnable {
 		player.initPositionPlayer(fenetre,generator);
 		while (true) {
 
-			player.afficherPlayer(cellules);
+			//player.afficherPlayer(cellules);
+			player.afficherPlayer();
 			player.findGate();
 			player.findMonstre();
 			player.findPit();
 			
 			if(player.getAlive()){
-				player.bouger(cellules, cpt);
+				player.bouger(cpt);
+			}
+			else{
+				player.initPositionPlayer(fenetre,generator);
+				//player.afficherPlayer(cellules);
+				player.afficherPlayer();
+				player.setAlive(true);
 			}
 			
 			//=====TEST====

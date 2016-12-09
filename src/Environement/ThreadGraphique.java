@@ -35,7 +35,7 @@ public class ThreadGraphique implements Runnable {
 		// On cree la fenetre avec les valeurs des cellules
 		
 		
-		//generator.generatePlace(cellules, dimm);
+		generator.generatePlace(cellules, dimm);
 		
 
 		// Boucle qui actualise l'interface graphique

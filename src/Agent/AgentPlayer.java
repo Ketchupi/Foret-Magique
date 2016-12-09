@@ -30,28 +30,30 @@ public class AgentPlayer {
 	private RandomMagic generator;
 	private Fenetre fenetre;
 	private boolean panique = false;
+	private int newTaille = taille + lvl;
 	
 	
 	private Memoire memoire;
 	
-	public void afficherPlayer(Cellule[][] cellules) {
-		// Pour toutes les cases possibles
-		this.cellules = cellules;
+	public void afficherPlayer() {
+
+		
+		//On recupère le tab de cellule de fenetre a des changement
+		this.cellules = fenetre.getCelluleFenetre();
+		// Par précaution je vire tout
 		for (int y = 0; y < cellules.length ; y++) {
 			for (int x = 0; x < cellules.length; x++) {
-				// Si la case fait partie des cases de l'environnement et que le
-				// robot y etait
-				
-				cellules[x][y].setPersonne(false);
-				
+				cellules[x][y].setPersonne(false);	
 			}
 		}
-		
 		// Une fois la map vide, on ecrit le robot au bon endroit
 		cellules[this.positionX][this.positionY].setPersonne(true);
+		//On redéfinit la taille + le niveau ou on en est
+		this.newTaille = taille+lvl;
 		
 	}
 	
+	//Méthode de départ de kevin, lors d'un echec + mémoire clean
 	public void initPositionPlayer(Fenetre fenetre,RandomMagic generator){
 		this.fenetre = fenetre;
 		this.generator=generator;
@@ -61,6 +63,7 @@ public class AgentPlayer {
 		this.memoire = new Memoire(taille);
 		memoire.initMemoire();
 	}
+	
 	public void initPositionPlayer(int x, int y){
 		this.positionX=x;
 		this.positionY=y;
@@ -69,39 +72,72 @@ public class AgentPlayer {
 	public void findGate(){
 		if (cellules[positionX][positionY].getGate()==true){
 			this.lvl=lvl+1;
+			this.newTaille = taille+lvl;
 			System.out.println(lvl);
-			this.alive =false;
-			generator.generatePlace(cellules, taille+lvl);
-			fenetre.updateFenetre(cellules, taille+lvl);
+			this.alive =true;
+			cellules = fenetre.initCellule(newTaille);
+			generator.generatePlace(cellules, newTaille);
+			fenetre.updateFenetre(cellules, newTaille);
+			
+			//On définit la mémoire de Kevin
+			this.memoire = new Memoire(newTaille);
+			memoire.initMemoire();
+			
 			
 		}this.cellules[positionX][positionY].setGate(false);
 	}
 	
 	public boolean findMonstre(){
-		if (cellules[positionX][positionY].getMonstre()==true){
-			this.mort++;	
-			this.lvl=0;
-			this.alive = false;
-			this.cellules[0][0].setPersonne(true);
-			generator.generatePlace(cellules, taille);
-			fenetre.updateFenetre(cellules, taille);
-
-			System.out.println("mort");
-			return true;
+		//Obligé de faire ce test car lorsqu'on rapetisse on garde encore un tour le truc en mémoire et ça plante
+		if(positionX<newTaille && positionX<newTaille){
+			
+			if (cellules[positionX][positionY].getMonstre()==true){
+				this.mort++;	
+				this.lvl=0;
+				this.alive = false;
+				this.cellules[0][0].setPersonne(true);
+				
+				cellules = fenetre.initCellule(taille);
+				generator.generatePlace(cellules, taille);
+				fenetre.updateFenetre(cellules, taille);
+				
+				//On définit la mémoire de Kevin
+				this.memoire = new Memoire(taille);
+				memoire.initMemoire();
+				
+				System.out.println("mort");
+				return true;
+			}
 		}
 		return false;
 	}
 	
 	public boolean findPit(){
-		if (cellules[positionX][positionY].getTrou()==true){
-			this.mort++;	
-			this.lvl=0;
-			generator.generatePlace(cellules, taille);
-			fenetre.updateFenetre(cellules, taille);
-			this.cellules[0][0].setPersonne(true);
-			System.out.println("mort");
-			return true;
+		//Obligé de faire ce test car lorsqu'on rapetisse on garde encore un tour le truc en mémoire et ça plante
+		if(positionX<newTaille && positionX<newTaille){
+			
+			if (cellules[positionX][positionY].getTrou()==true){
+				this.mort++;	
+				this.lvl=0;
+				this.alive = false;
+				
+				cellules = fenetre.initCellule(taille);
+				generator.generatePlace(cellules, taille);
+				fenetre.updateFenetre(cellules, taille);
+				this.cellules[0][0].setPersonne(true);
+				
+				//On définit la mémoire de Kevin
+				this.memoire = new Memoire(taille);
+				memoire.initMemoire();
+				
+				
+				System.out.println("mort");
+				return true;
+			}
+			
 		}
+		
+		
 		return false;
 	}
 	
@@ -145,17 +181,19 @@ public class AgentPlayer {
 			position = haut(positionX, positionY);
 		}*/
 		
-		if(positionX!=(taille-1)){	
+		//SI X DIFFERENT BORD DROIT
+		if(positionX!=(newTaille-1)){	
 			if(testEndDroite(positionX, positionY)==true){
 				if(Grille[positionX+1][positionY].getConnu()==false){
 					position = droite(positionX, positionY);
 				}
+				// ? 
 			}else{
 				position = bas(positionX, positionY);
 			}
 			
 		}
-		if(positionX==taille-1){
+		if(positionX==newTaille-1){
 			if(testEndBas(positionX, positionY)==true){
 				if(Grille[positionX][positionY+1].getConnu()==false){
 					position = bas(positionX, positionY);
@@ -165,7 +203,7 @@ public class AgentPlayer {
 				position = gauche(positionX, positionY);
 			}
 		}
-		if(positionY==taille-1){
+		if(positionY==newTaille-1){
 			if(testEndGauche(positionX, positionY)==true){
 				if(Grille[positionX-1][positionY].getConnu()==false){
 					position = gauche(positionX, positionY);
@@ -199,7 +237,7 @@ public class AgentPlayer {
 	}
 	
 	public boolean testEndDroite(int i, int j){
-		if (i+1<taille){
+		if (i+1<newTaille){
 			return true;
 		}
 		return false;
@@ -217,7 +255,7 @@ public class AgentPlayer {
 		return false;
 	}
 	public boolean testEndBas(int i, int j){
-		if (j+1<taille){
+		if (j+1<newTaille){
 			return true;
 		}
 		return false;
@@ -248,8 +286,8 @@ public class AgentPlayer {
 		return o;
 	}
 	
-	public void bouger(Cellule[][] actuelle, int cpt){
-		memoire.enregistrement(positionX, positionY, actuelle);
+	public void bouger(int cpt){
+		memoire.enregistrement(positionX, positionY, cellules);
 		Cellule[][] Grille = memoire.getGrille(); 
 		int[] pos = cptToXY(Grille, cpt);
 		this.setPositionX(pos[0]);
@@ -363,6 +401,10 @@ public class AgentPlayer {
 
 	public void setWinboolean(boolean winboolean) {
 		this.winboolean = winboolean;
+	}
+	
+	public void setAlive(boolean a){
+		this.alive = a;
 	}
 
 }
