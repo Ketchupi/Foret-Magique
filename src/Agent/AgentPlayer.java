@@ -127,85 +127,18 @@ public class AgentPlayer {
 		
 		if(cpt==0){
 			position = droite(positionX, positionY);
+			droite = true;
 			System.out.println("la position demandée est : {"+position[0]+","+position[1]+"}");
+			return position;
 		}
 		position = droiteKev(positionX, positionY);
+		
 		System.out.println( positionX + " , " + positionY + " = "+ Grille[positionX][positionY].getConnu());
-		/*
-		if(positionX!=(taille-1)){
-			//Check a droite
-			if(Grille[positionX+1][positionY].getConnu()==false){
-				position = droite(positionX, positionY);
-			}else{
-				position = bas(positionX, positionY);
-			}
-			
-			
-		}
-		if(positionY+1!=(taille) && positionX==(taille-1)){
-			System.out.println( positionX + " , " + positionY+1 + " = "+ Grille[positionX][positionY].getConnu());
-			if(Grille[positionX][positionY+1].getConnu()==false ){
-				position = bas(positionX, positionY);
-			}
-		}
-		
-		if(positionY==(taille-1)){
-			position = gauche(positionX, positionY);
-		}
-		if(positionX== 0 && positionY != 0 && positionY-1>=0 && Grille[positionX][positionY-1].getConnu()==false){
-			position = haut(positionX, positionY);
-		}*/
-		
-		/*
-		if(positionX!=(taille-1)){	
-			if(EndDroite(positionX, positionY)==true){
-				if(Grille[positionX+1][positionY].getConnu()==false){
-					position = droite(positionX, positionY);
-				}
-			}else{
-				position = bas(positionX, positionY);
-			}
-			
-		}
-		if(positionX==taille-1){
-			if(EndBas(positionX, positionY)==true){
-				if(Grille[positionX][positionY+1].getConnu()==false){
-					position = bas(positionX, positionY);
-				}
-			}
-			else{
-				position = gauche(positionX, positionY);
-			}
-		}
-		if(positionY==taille-1){
-			if(EndGauche(positionX, positionY)==true){
-				if(Grille[positionX-1][positionY].getConnu()==false){
-					position = gauche(positionX, positionY);
-				}
-			}
-			else{
-				position = haut(positionX, positionY);
-			}
-		}*/
-		
-		/*
-		if(testEndDroite(positionX, positionY)==true){
-			position = droite(positionX, positionY);
-		}
-		if(testEndGauche(positionX, positionY)==true){
-			position = gauche(positionX, positionY);
-		}
-		if(testEndHaut(positionX, positionY)==true){
-			position = haut(positionX, positionY);
-		}
-		if(testEndBas(positionX, positionY)==true){
-			position = bas(positionX, positionY);
-		}*/
 		
 		if(position==null){
 			position = surplace(positionX, positionY);
+			return position;
 		}
-		
 		
 		return position;
 	}
@@ -260,31 +193,35 @@ public class AgentPlayer {
 	}
 	
 	public int[] droiteKev(int i, int j){
+		
 		int[] o = null;
-		if(droite&&!this.EndDroite(i, j)){
+		
+		if(droite&&this.EndDroite(i, j)){
 			o = droite(i,j);
-		}else if(droite&&this.EndDroite(i, j)){
+			
+		}else if(droite&&!this.EndDroite(i, j)){
 			droite = false;
 			o = bas(i,j);
-		}else if(bas&&!this.EndBas(i, j)){
-			o = bas(i,j);
+			
 		}else if(bas&&this.EndBas(i, j)){
+			o = bas(i,j);
+		}else if(bas&&!this.EndBas(i, j)){
 			bas = false;
 			o = gauche(i,j);
-		}else if(gauche&&!this.EndGauche(i, j)){
-			o = gauche(i,j);
-		}else if(gauche&&!this.EndGauche(i, j)){
-			o = gauche(i,j);
 		}else if(gauche&&this.EndGauche(i, j)){
+			o = gauche(i,j);
+		}else if(gauche&&!this.EndGauche(i, j)){
 			gauche = false;
 			o = haut(i,j);
-		}else if(haut&&!this.EndHaut(i, j)){
-			o = haut(i,j);
 		}else if(haut&&this.EndHaut(i, j)){
+			o = haut(i,j);
+		}else if(haut&&!this.EndHaut(i, j)){
 			haut = false;
 			o = droite(i,j);
 		}
 				
+		System.out.println("vecteur d'ordres : {droite, gauche, haut, bas} : {"+droite+","+gauche+","+haut+","+bas+"}" );
+		
 		return o;
 	}
 	
