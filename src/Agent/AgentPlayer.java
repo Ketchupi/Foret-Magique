@@ -32,6 +32,11 @@ public class AgentPlayer {
 	private boolean panique = false;
 	
 	
+	//BOUSSOLE
+	private boolean droite = false;
+	private boolean bas = false;
+	private boolean gauche= false;
+	private boolean haut = false;
 	private Memoire memoire;
 	
 	public void afficherPlayer(Cellule[][] cellules) {
@@ -119,6 +124,12 @@ public class AgentPlayer {
 	public int[] cptToXY( Cellule[][] Grille, int cpt){
 		
 		int[] position = null;
+		
+		if(cpt==0){
+			position = droite(positionX, positionY);
+			System.out.println("la position demandée est : {"+position[0]+","+position[1]+"}");
+		}
+		position = droiteKev(positionX, positionY);
 		System.out.println( positionX + " , " + positionY + " = "+ Grille[positionX][positionY].getConnu());
 		/*
 		if(positionX!=(taille-1)){
@@ -145,8 +156,9 @@ public class AgentPlayer {
 			position = haut(positionX, positionY);
 		}*/
 		
+		/*
 		if(positionX!=(taille-1)){	
-			if(testEndDroite(positionX, positionY)==true){
+			if(EndDroite(positionX, positionY)==true){
 				if(Grille[positionX+1][positionY].getConnu()==false){
 					position = droite(positionX, positionY);
 				}
@@ -156,7 +168,7 @@ public class AgentPlayer {
 			
 		}
 		if(positionX==taille-1){
-			if(testEndBas(positionX, positionY)==true){
+			if(EndBas(positionX, positionY)==true){
 				if(Grille[positionX][positionY+1].getConnu()==false){
 					position = bas(positionX, positionY);
 				}
@@ -166,7 +178,7 @@ public class AgentPlayer {
 			}
 		}
 		if(positionY==taille-1){
-			if(testEndGauche(positionX, positionY)==true){
+			if(EndGauche(positionX, positionY)==true){
 				if(Grille[positionX-1][positionY].getConnu()==false){
 					position = gauche(positionX, positionY);
 				}
@@ -174,7 +186,7 @@ public class AgentPlayer {
 			else{
 				position = haut(positionX, positionY);
 			}
-		}
+		}*/
 		
 		/*
 		if(testEndDroite(positionX, positionY)==true){
@@ -198,25 +210,25 @@ public class AgentPlayer {
 		return position;
 	}
 	
-	public boolean testEndDroite(int i, int j){
+	public boolean EndDroite(int i, int j){
 		if (i+1<taille){
 			return true;
 		}
 		return false;
 	}
-	public boolean testEndGauche(int i, int j){
+	public boolean EndGauche(int i, int j){
 		if (i-1>=0){
 			return true;
 		}
 		return false;
 	}
-	public boolean testEndHaut(int i, int j){
+	public boolean EndHaut(int i, int j){
 		if (j-1>=0){
 			return true;
 		}
 		return false;
 	}
-	public boolean testEndBas(int i, int j){
+	public boolean EndBas(int i, int j){
 		if (j+1<taille){
 			return true;
 		}
@@ -224,22 +236,55 @@ public class AgentPlayer {
 	}
 	
 	public int[] droite(int i, int j){
+		this.droite = true;
 		int[] o = new int[] {i+1,j};
 		return o;
 	}
 	
 	public int[] gauche(int i, int j){
+		this.gauche = true;
 		int[] o = new int[] {i-1, j};
 		return o;
 	}
 	
 	public int[] bas(int i, int j){
+		this.bas = true;
 		int[] o = new int[] {i, j+1};
 		return o;
 	}
 	
 	public int[] haut(int i, int j){
+		this.haut = true;
 		int[] o = new int[] {i,j-1};
+		return o;
+	}
+	
+	public int[] droiteKev(int i, int j){
+		int[] o = null;
+		if(droite&&!this.EndDroite(i, j)){
+			o = droite(i,j);
+		}else if(droite&&this.EndDroite(i, j)){
+			droite = false;
+			o = bas(i,j);
+		}else if(bas&&!this.EndBas(i, j)){
+			o = bas(i,j);
+		}else if(bas&&this.EndBas(i, j)){
+			bas = false;
+			o = gauche(i,j);
+		}else if(gauche&&!this.EndGauche(i, j)){
+			o = gauche(i,j);
+		}else if(gauche&&!this.EndGauche(i, j)){
+			o = gauche(i,j);
+		}else if(gauche&&this.EndGauche(i, j)){
+			gauche = false;
+			o = haut(i,j);
+		}else if(haut&&!this.EndHaut(i, j)){
+			o = haut(i,j);
+		}else if(haut&&this.EndHaut(i, j)){
+			haut = false;
+			o = droite(i,j);
+		}
+				
 		return o;
 	}
 	
@@ -269,9 +314,9 @@ public class AgentPlayer {
 				
 			}
 		}*/
-		
-		
 	}
+	
+	
 
 	public int getPositionX() {
 		return positionX;
