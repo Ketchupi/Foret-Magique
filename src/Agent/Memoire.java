@@ -37,6 +37,11 @@ public class Memoire {
 		
 		this.Grille[i][j]= cellules[i][j];
 		this.Grille[i][j].setConnu(true);
+		/*for (int k = 0; k < Grille.length; k++) {
+			for (int k2 = 0; k2 < Grille.length; k2++) {
+				System.out.println("{"+k+","+k2+"}"+Grille[k][k2].getConnu());
+			}
+		}*/
 		
 	}
 	
@@ -59,5 +64,10 @@ public class Memoire {
 		this.taille = taille;
 	}
 	
+	public boolean getConnu(int i, int j){
+		boolean Known = this.Grille[i][j].getConnu();
+		
+		return Known;
+	}
 	
 }

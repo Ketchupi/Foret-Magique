@@ -65,6 +65,8 @@ public class AgentPlayer {
 		this.positionY=0;
 		this.memoire = new Memoire(taille);
 		memoire.initMemoire();
+		
+		System.out.println("initiation");
 	}
 	public void initPositionPlayer(int x, int y){
 		this.positionX=x;
@@ -129,9 +131,11 @@ public class AgentPlayer {
 			position = droite(positionX, positionY);
 			droite = true;
 			System.out.println("la position demandée est : {"+position[0]+","+position[1]+"}");
+
 			return position;
 		}
-		position = droiteKev(positionX, positionY);
+		
+		position = droiteKev(Grille, positionX, positionY);
 		
 		System.out.println( positionX + " , " + positionY + " = "+ Grille[positionX][positionY].getConnu());
 		
@@ -140,7 +144,28 @@ public class AgentPlayer {
 			return position;
 		}
 		
+		//System.out.println("ma mémoire me dis que la prochaine case {"+ position[0] + ","+ position[1] +"} connue : " + this.KnownPlace(Grille, position[0], position[1]));
+
 		return position;
+	}
+	
+	public boolean NextCaseIsNew(Cellule[][] grille, int i, int j){
+		
+		int[] NextPosition = droiteKev(grille, i,j);
+		
+		if(KnownPlace(grille, NextPosition[0], NextPosition[1])){
+			return false;
+		}
+		
+		return true;
+	}
+	public boolean KnownPlace(Cellule[][] grille, int i, int j){
+		
+		if(grille[i][j].getConnu()){
+			System.out.println("la prochaine case {"+i+ ","+j+"} est KnownPlace");
+			return true;
+		}
+		return false;
 	}
 	
 	public boolean EndDroite(int i, int j){
@@ -149,18 +174,21 @@ public class AgentPlayer {
 		}
 		return false;
 	}
+	
 	public boolean EndGauche(int i, int j){
 		if (i-1>=0){
 			return true;
 		}
 		return false;
 	}
+	
 	public boolean EndHaut(int i, int j){
 		if (j-1>=0){
 			return true;
 		}
 		return false;
 	}
+	
 	public boolean EndBas(int i, int j){
 		if (j+1<taille){
 			return true;
@@ -192,35 +220,86 @@ public class AgentPlayer {
 		return o;
 	}
 	
-	public int[] droiteKev(int i, int j){
+	public int[] toutDroitKev(int i, int j){
+		int[] o = null;
+		
+		if(droite){
+
+			o = droite(i,j);
+			
+		}else if(bas){
+			
+			o = bas(i,j);
+			
+		}else if(gauche){
+			
+			o = gauche(i,j);
+			
+		}else if(haut){
+				o = haut(i,j);
+		}
+		
+		return o;
+	}
+	public int[] droiteKev(Cellule[][] memoire, int i, int j){
 		
 		int[] o = null;
 		
 		if(droite&&this.EndDroite(i, j)){
-			o = droite(i,j);
 			
-		}else if(droite&&!this.EndDroite(i, j)){
+			if(!this.NextCaseIsNew(memoire, toutDroitKev(i,j)[0], toutDroitKev(i,j)[1])){
+				System.out.println("b");
+				droite = false;
+				o = bas(i,j);
+			}else{
+			o = droite(i,j);
+			}
+		}else if((droite&&!this.EndDroite(i, j))){
 			droite = false;
 			o = bas(i,j);
 			
 		}else if(bas&&this.EndBas(i, j)){
+			
+			if(!this.NextCaseIsNew(memoire, toutDroitKev(i,j)[0], toutDroitKev(i,j)[1])){
+				System.out.println("g");
+				bas = false;
+				o = gauche(i,j);
+			}else{
 			o = bas(i,j);
+			}
+			
 		}else if(bas&&!this.EndBas(i, j)){
 			bas = false;
 			o = gauche(i,j);
 		}else if(gauche&&this.EndGauche(i, j)){
+			
+			if(!this.NextCaseIsNew(memoire, toutDroitKev(i,j)[0], toutDroitKev(i,j)[1])){
+				System.out.println("h");
+				gauche = false;
+				o = haut(i,j);
+			}else{
 			o = gauche(i,j);
+			}
+			
 		}else if(gauche&&!this.EndGauche(i, j)){
+			
 			gauche = false;
 			o = haut(i,j);
+			
 		}else if(haut&&this.EndHaut(i, j)){
-			o = haut(i,j);
+
+			if(!this.NextCaseIsNew(memoire, toutDroitKev(i,j)[0], toutDroitKev(i,j)[1])){
+				System.out.println("d");
+				haut = false;
+				o = droite(i,j);
+			}else{			
+				o = haut(i,j);
+			}
+			
 		}else if(haut&&!this.EndHaut(i, j)){
 			haut = false;
 			o = droite(i,j);
 		}
-				
-		System.out.println("vecteur d'ordres : {droite, gauche, haut, bas} : {"+droite+","+gauche+","+haut+","+bas+"}" );
 		
 		return o;
 	}
@@ -231,12 +310,16 @@ public class AgentPlayer {
 	}
 	
 	public void bouger(Cellule[][] actuelle, int cpt){
-		memoire.enregistrement(positionX, positionY, actuelle);
+		
+		
 		Cellule[][] Grille = memoire.getGrille(); 
 		int[] pos = cptToXY(Grille, cpt);
 		this.setPositionX(pos[0]);
 		this.setPositionY(pos[1]);
+		memoire.enregistrement(pos[0], pos[1], actuelle);
+		
 		System.out.println("cpt = "+cpt);
+		
 		/*
 		if(cpt==6){
 			System.out.println("x, y "+positionX +" "+positionY);
@@ -250,7 +333,8 @@ public class AgentPlayer {
 				}
 				
 			}
-		}*/
+		}
+		*/
 	}
 	
 	
@@ -258,27 +342,35 @@ public class AgentPlayer {
 	public int getPositionX() {
 		return positionX;
 	}
+	
 	public void setPositionX(int positionX) {
 		this.positionX = positionX;
 	}
+	
 	public int getPositionY() {
 		return positionY;
 	}
+	
 	public void setPositionY(int positionY) {
 		this.positionY = positionY;
 	}
+	
 	public int getPositionABSX() {
 		return positionABSX;
 	}
+	
 	public boolean getAlive(){
 		return alive;
 	}
+	
 	public void setPositionABSX(int positionABSX) {
 		this.positionABSX = positionABSX;
 	}
+	
 	public int getPositionABSY() {
 		return positionABSY;
 	}
+	
 	public void setPositionABSY(int positionABSY) {
 		this.positionABSY = positionABSY;
 	}
