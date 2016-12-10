@@ -33,6 +33,11 @@ public class AgentPlayer {
 	private int newTaille = taille + lvl;
 	
 	
+	//BOUSSOLE
+	private boolean droite = false;
+	private boolean bas = false;
+	private boolean gauche= false;
+	private boolean haut = false;
 	private Memoire memoire;
 	
 	public void afficherPlayer() {
@@ -62,6 +67,7 @@ public class AgentPlayer {
 		this.positionY=0;
 		this.memoire = new Memoire(taille);
 		memoire.initMemoire();
+		
 	}
 	
 	public void initPositionPlayer(int x, int y){
@@ -155,32 +161,15 @@ public class AgentPlayer {
 	public int[] cptToXY( Cellule[][] Grille, int cpt){
 		
 		int[] position = null;
-		System.out.println( positionX + " , " + positionY + " = "+ Grille[positionX][positionY].getConnu());
-		/*
-		if(positionX!=(taille-1)){
-			//Check a droite
-			if(Grille[positionX+1][positionY].getConnu()==false){
-				position = droite(positionX, positionY);
-			}else{
-				position = bas(positionX, positionY);
-			}
-			
-			
-		}
-		if(positionY+1!=(taille) && positionX==(taille-1)){
-			System.out.println( positionX + " , " + positionY+1 + " = "+ Grille[positionX][positionY].getConnu());
-			if(Grille[positionX][positionY+1].getConnu()==false ){
-				position = bas(positionX, positionY);
-			}
+		
+		if(cpt==0){
+			position = droite(positionX, positionY);
+			droite = true;
+
+			return position;
 		}
 		
-		if(positionY==(taille-1)){
-			position = gauche(positionX, positionY);
-		}
-		if(positionX== 0 && positionY != 0 && positionY-1>=0 && Grille[positionX][positionY-1].getConnu()==false){
-			position = haut(positionX, positionY);
-		}*/
-		
+<<<<<<< HEAD
 		//SI X DIFFERENT BORD DROIT
 		if(positionX!=(newTaille-1)){	
 			if(testEndDroite(positionX, positionY)==true){
@@ -213,129 +202,248 @@ public class AgentPlayer {
 				position = haut(positionX, positionY);
 			}
 		}
+=======
+		position = droiteKev(Grille, positionX, positionY);
+>>>>>>> 626a1d531b09a5913e901a90b42a0a2426745577
 		
-		/*
-		if(testEndDroite(positionX, positionY)==true){
-			position = droite(positionX, positionY);
-		}
-		if(testEndGauche(positionX, positionY)==true){
-			position = gauche(positionX, positionY);
-		}
-		if(testEndHaut(positionX, positionY)==true){
-			position = haut(positionX, positionY);
-		}
-		if(testEndBas(positionX, positionY)==true){
-			position = bas(positionX, positionY);
-		}*/
+		System.out.println( positionX + " , " + positionY + " = "+ Grille[positionX][positionY].getConnu());
 		
 		if(position==null){
 			position = surplace(positionX, positionY);
+			return position;
 		}
 		
-		
+		//System.out.println("ma mémoire me dis que la prochaine case {"+ position[0] + ","+ position[1] +"} connue : " + this.KnownPlace(Grille, position[0], position[1]));
+
 		return position;
 	}
+
 	
+<<<<<<< HEAD
 	public boolean testEndDroite(int i, int j){
 		if (i+1<newTaille){
+=======
+	public boolean NextBoxIsNew(Cellule[][] grille, int i, int j){
+		
+		int[] NextPosition = droiteKev(grille, i,j);
+		
+		if(KnownPlace(grille, NextPosition[0], NextPosition[1])){
+			return false;
+		}
+		
+		return true;
+	}
+	public boolean KnownPlace(Cellule[][] grille, int i, int j){
+		
+		if(grille[i][j].getConnu()){
 			return true;
 		}
 		return false;
 	}
-	public boolean testEndGauche(int i, int j){
+	
+	public boolean EndDroite(int i, int j){
+		if (i+1<taille){
+>>>>>>> 626a1d531b09a5913e901a90b42a0a2426745577
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean EndGauche(int i, int j){
 		if (i-1>=0){
 			return true;
 		}
 		return false;
 	}
-	public boolean testEndHaut(int i, int j){
+	
+	public boolean EndHaut(int i, int j){
 		if (j-1>=0){
 			return true;
 		}
 		return false;
 	}
+<<<<<<< HEAD
 	public boolean testEndBas(int i, int j){
 		if (j+1<newTaille){
+=======
+	
+	public boolean EndBas(int i, int j){
+		if (j+1<taille){
+>>>>>>> 626a1d531b09a5913e901a90b42a0a2426745577
 			return true;
 		}
 		return false;
 	}
 	
 	public int[] droite(int i, int j){
+		this.droite = true;
 		int[] o = new int[] {i+1,j};
 		return o;
 	}
 	
 	public int[] gauche(int i, int j){
+		this.gauche = true;
 		int[] o = new int[] {i-1, j};
 		return o;
 	}
 	
 	public int[] bas(int i, int j){
+		this.bas = true;
 		int[] o = new int[] {i, j+1};
 		return o;
 	}
 	
 	public int[] haut(int i, int j){
+		this.haut = true;
 		int[] o = new int[] {i,j-1};
 		return o;
 	}
+	
+	public int[] toutDroitKev(int i, int j){
+		int[] o = null;
+		
+		if(droite){
+
+			o = droite(i,j);
+			
+		}else if(bas){
+			
+			o = bas(i,j);
+			
+		}else if(gauche){
+			
+			o = gauche(i,j);
+			
+		}else if(haut){
+				o = haut(i,j);
+		}
+		
+		return o;
+	}
+	
+	public int[] droiteKev(Cellule[][] memoire, int i, int j){
+		
+		int[] o = null;
+		
+		if(droite&&this.EndDroite(i, j)){
+			
+			if(!NextBoxIsNew(memoire, toutDroitKev(i,j)[0], toutDroitKev(i,j)[1])){
+				droite = false;
+				o = bas(i,j);
+			}else{
+			o = droite(i,j);
+			}
+		}else if((droite&&!this.EndDroite(i, j))){
+			droite = false;
+			o = bas(i,j);
+			
+		}else if(bas&&this.EndBas(i, j)){
+			
+			if(!NextBoxIsNew(memoire, toutDroitKev(i,j)[0], toutDroitKev(i,j)[1])){
+				
+				bas = false;
+				o = gauche(i,j);
+			}else{
+			o = bas(i,j);
+			}
+			
+		}else if(bas&&!this.EndBas(i, j)){
+			bas = false;
+			o = gauche(i,j);
+		}else if(gauche&&this.EndGauche(i, j)){
+			
+			if(!NextBoxIsNew(memoire, toutDroitKev(i,j)[0], toutDroitKev(i,j)[1])){
+				
+				gauche = false;
+				o = haut(i,j);
+			}else{
+			o = gauche(i,j);
+			}
+			
+		}else if(gauche&&!this.EndGauche(i, j)){
+			
+			gauche = false;
+			o = haut(i,j);
+			
+		}else if(haut&&this.EndHaut(i, j)){
+
+			if(!NextBoxIsNew(memoire, toutDroitKev(i,j)[0], toutDroitKev(i,j)[1])){
+				
+				haut = false;
+				o = droite(i,j);
+			}else{			
+				o = haut(i,j);
+			}
+			
+		}else if(haut&&!this.EndHaut(i, j)){
+			haut = false;
+			o = droite(i,j);
+		}
+		
+		return o;
+	}
+	
+	 
 	
 	public int[] surplace(int i, int j){
 		int[] o = new int[] {i,j};
 		return o;
 	}
 	
+<<<<<<< HEAD
 	public void bouger(int cpt){
 		memoire.enregistrement(positionX, positionY, cellules);
+=======
+	public void bouger(Cellule[][] actuelle, int cpt){
+		
+>>>>>>> 626a1d531b09a5913e901a90b42a0a2426745577
 		Cellule[][] Grille = memoire.getGrille(); 
 		int[] pos = cptToXY(Grille, cpt);
 		mouvement ++;
 		this.setPositionX(pos[0]);
 		this.setPositionY(pos[1]);
-		System.out.println("cpt = "+cpt);
-		/*
-		if(cpt==6){
-			System.out.println("x, y "+positionX +" "+positionY);
-			System.out.println(taille);
-			System.out.println((positionX!=taille));
-			System.out.println((positionX==taille));
-			Cellule[][] cells = memoire.getGrille();
-			for (int i = 0; i < 3; i++) {
-				for (int j = 0; j < 3; j++) {
-					System.out.println( i+ " , " + j + " = "+ cells[i][j].getConnu());
-				}
-				
-			}
-		}*/
+		memoire.enregistrement(pos[0], pos[1], actuelle);
 		
+		memoire.ThrowBackPossible(pos[0], pos[1]);
+		
+		System.out.println("cpt = "+cpt);
 		
 	}
+	
+	
 
 	public int getPositionX() {
 		return positionX;
 	}
+	
 	public void setPositionX(int positionX) {
 		this.positionX = positionX;
 	}
+	
 	public int getPositionY() {
 		return positionY;
 	}
+	
 	public void setPositionY(int positionY) {
 		this.positionY = positionY;
 	}
+	
 	public int getPositionABSX() {
 		return positionABSX;
 	}
+	
 	public boolean getAlive(){
 		return alive;
 	}
+	
 	public void setPositionABSX(int positionABSX) {
 		this.positionABSX = positionABSX;
 	}
+	
 	public int getPositionABSY() {
 		return positionABSY;
 	}
+	
 	public void setPositionABSY(int positionABSY) {
 		this.positionABSY = positionABSY;
 	}

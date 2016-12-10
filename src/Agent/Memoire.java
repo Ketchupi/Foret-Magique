@@ -8,11 +8,30 @@ public class Memoire {
 
 	private Cellule[][] Grille = null;
 	private int taille;
+	private boolean throwback;
+	
 	
 	public Memoire(int taille){
 		this.taille = taille;
 		this.Grille = new Cellule[taille][taille];
 
+	}
+	
+	public boolean ThrowBackPossible(int i, int j){
+		int p=0;
+		for (int j2 = 0; j2 < taille; j2++) {
+			for (int k = 0; k < taille; k++) {
+				if(Grille[j2][k].getConnu()){
+					p+=1;
+					System.out.println("p = " + p + " " + (taille*taille-1));
+					if(p==(taille*taille)){
+						System.out.println("On est au bout");
+						return true;
+					}
+				}
+			}
+		}
+		return false;
 	}
 	
 	public void initMemoire(){
@@ -37,8 +56,10 @@ public class Memoire {
 		
 		this.Grille[i][j]= cellules[i][j];
 		this.Grille[i][j].setConnu(true);
+		Cellule cellule = Grille[i][j];
 		
 	}
+	
 	
 	public Cellule[][] getGrille() {
 		return Grille;
@@ -59,5 +80,10 @@ public class Memoire {
 		this.taille = taille;
 	}
 	
+	public boolean getConnu(int i, int j){
+		boolean Known = this.Grille[i][j].getConnu();
+		
+		return Known;
+	}
 	
 }

@@ -54,6 +54,7 @@ public class ThreadPlayer implements Runnable {
 				player.setAlive(true);
 			}
 			
+<<<<<<< HEAD
 			//=====TEST====
 			/*
 			if(cpt >5){
@@ -67,6 +68,9 @@ public class ThreadPlayer implements Runnable {
 			}
 			*/
 			
+=======
+			cpt ++;
+>>>>>>> 626a1d531b09a5913e901a90b42a0a2426745577
 			//Thread.sleep(timer);
 			
 			cpt ++;
