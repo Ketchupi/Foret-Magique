@@ -46,18 +46,6 @@ public class ThreadPlayer implements Runnable {
 				player.bouger(cellules, cpt);
 			}
 			
-			//=====TEST====
-			/*
-			if(cpt >5){
-				player.setPositionX(2);player.setPositionY(0);
-			}
-			if(cpt >10){
-				player.setPositionX(3);player.setPositionY(0);
-			}
-			if(cpt >15){
-				player.setPositionX(4);player.setPositionY(0);
-			}
-			*/
 			cpt ++;
 			//Thread.sleep(timer);
 			Thread.currentThread().suspend();
