@@ -9,6 +9,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import Agent.AgentPlayer;
+
 
 public class Fenetre extends JFrame implements ActionListener {
 
@@ -22,6 +24,7 @@ public class Fenetre extends JFrame implements ActionListener {
 	protected Thread threadKevin;
 	private int switchBouton = 0;
 	private int dimm;
+	private AgentPlayer kevin;
 	/*
 	 * Constructeurs
 	 */
@@ -38,6 +41,7 @@ public class Fenetre extends JFrame implements ActionListener {
 	 * @return cellule[][]
 	 */
 	public Cellule[][] initCellule(int dimmension){
+		
 		
 		cellules = new Cellule[dimmension][dimmension];
 		
@@ -66,13 +70,14 @@ public class Fenetre extends JFrame implements ActionListener {
 	 * On definit la fenetre graphique ici
 	 */
 	
-	public Fenetre(int dimm) {
+	public Fenetre(int dimm,AgentPlayer k) {
 		this.setDimm(dimm);
 		this.dimm = dimm;
+		this.kevin = k;
 		
 		
 		this.setTitle("Kevin le noob");
-		this.setSize(1000, 700);
+		this.setSize(1200, 700);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		
@@ -91,7 +96,8 @@ public class Fenetre extends JFrame implements ActionListener {
 		//On construit la cellule
 		cellules = initCellule(dimm);
 		//On passe le tableau de cellule dans grille qui vas dessiner
-		this.grille = new Grille(cellules,dimm);
+		this.grille = new Grille(cellules,dimm,kevin);
+		grille.setKevin(kevin);
 		//On ajoute au Panel qui sera réactualisé (remove puis add)
 		this.getContentPane().add(grille, BorderLayout.CENTER);
 
@@ -156,7 +162,7 @@ public class Fenetre extends JFrame implements ActionListener {
 	public void updateFenetre(Cellule[][] cell,int dim){
 		this.cellules = cell;
 		this.getContentPane().remove(grille);
-		this.grille = new Grille(cellules,dim);
+		this.grille = new Grille(cellules,dim,kevin);
 		this.getContentPane().add(grille, BorderLayout.CENTER);
 		this.setVisible(true);
 	}

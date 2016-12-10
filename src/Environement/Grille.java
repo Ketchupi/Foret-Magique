@@ -5,6 +5,8 @@ import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
+import Agent.AgentPlayer;
+
 
 
 public class Grille extends JPanel {
@@ -19,12 +21,14 @@ public class Grille extends JPanel {
 	protected Gate gate = new Gate();
 	protected Pit pit = new Pit();
 	protected Cellule[][] cellules = null;
+	private AgentPlayer kevin;
 
 	/*
 	 * Constructeurs
 	 */
 
-	public Grille(Cellule[][] cell, int dimm) {
+	public Grille(Cellule[][] cell, int dimm, AgentPlayer kevin) {
+		this.kevin = kevin;
 		this.dimm=dimm;
 		cellules = new Cellule[dimm][dimm];
 		for (int i = 0; i < dimm; i++) {
@@ -82,6 +86,55 @@ public class Grille extends JPanel {
 				}
 			}
 		}
+		
+		
+		int n0 = 800;
+		int k0 = 25;
+		int hauteurK = 50;
+		int largueurN = 230;
+
+		for (int n = 0; n < 2; n++) {
+			for (int k = 0; k < 4; k++) {
+				
+				if (n == 0) {
+					if (k == 0) {
+						g.drawString("Nombre de bijoux ramassés :", n0 + largueurN * n + 10,
+								k0 + hauteurK * (k + 1) - hauteurK / 2);
+					}
+					if (k == 1) {
+						g.drawString("Nombre de saletés néttoyées :", n0 + largueurN * n + 10,
+								k0 + hauteurK * (k + 1) - hauteurK / 2);
+					}
+					if (k == 2) {
+						g.drawString("Coût d'electricité :", n0 + largueurN * n + 10,
+								k0 + hauteurK * (k + 1) - hauteurK / 2);
+					}
+					if (k == 3) {
+						g.drawString("Nombre d'erreurs :", n0 + largueurN * n + 10,
+								k0 + hauteurK * (k + 1) - hauteurK / 2);
+					}
+				} else {
+					if (k == 0) {
+						if(kevin !=null)
+						g.drawString(Integer.toString(kevin.getMouvement()), n0 + largueurN * n + 10,
+								k0 + hauteurK * (k + 1) - hauteurK / 2);
+					}
+					if (k == 1) {
+						g.drawString(Integer.toString(1), n0 + largueurN * n + 10,
+								k0 + hauteurK * (k + 1) - hauteurK / 2);
+					}
+					if (k == 2) {
+						g.drawString(Integer.toString(1), n0 + largueurN * n + 10,
+								k0 + hauteurK * (k + 1) - hauteurK / 2);
+					}
+					if (k == 3) {
+						g.drawString(Integer.toString(1), n0 + largueurN * n + 10,
+								k0 + hauteurK * (k + 1) - hauteurK / 2);
+					}
+				}
+			}
+		}
+		
 	}
 
 	public Cellule[][] getCellules() {
@@ -90,5 +143,15 @@ public class Grille extends JPanel {
 
 	public void setCellules(Cellule[][] cellules) {
 		this.cellules = cellules;
+	}
+
+
+	public AgentPlayer getKevin() {
+		return kevin;
+	}
+
+
+	public void setKevin(AgentPlayer kevin) {
+		this.kevin = kevin;
 	}
 }

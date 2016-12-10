@@ -24,12 +24,12 @@ public class mainGraphique {
 		player = new AgentPlayer();
 
 		//Constructeur de la fenetre
-		Fenetre fenetre = new Fenetre(dimmension);
+		Fenetre fenetre = new Fenetre(dimmension,player);
 		//On récupère la cellules créer par fenetre
 		cell = fenetre.initCellule(dimmension);
 		
 		//Init des thread
-		Thread thGraphique = new Thread(new ThreadGraphique(fenetre,generator,player,cell,200,dimmension));
+		Thread thGraphique = new Thread(new ThreadGraphique(fenetre,generator,player,cell,500,dimmension));
 		thGraphique.start();
 		Thread thPlayer = new Thread(new ThreadPlayer(fenetre,generator,player,cell,500,dimmension));
 		thPlayer.start();

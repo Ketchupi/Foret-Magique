@@ -38,6 +38,7 @@ public class ThreadPlayer implements Runnable {
 		while (true) {
 
 			//player.afficherPlayer(cellules);
+			//player.setMouvement(cpt);
 			player.afficherPlayer();
 			player.findGate();
 			player.findMonstre();
@@ -65,8 +66,10 @@ public class ThreadPlayer implements Runnable {
 				player.setPositionX(4);player.setPositionY(0);
 			}
 			*/
-			cpt ++;
+			
 			//Thread.sleep(timer);
+			
+			cpt ++;
 			Thread.currentThread().suspend();
 			
 		}

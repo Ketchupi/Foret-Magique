@@ -290,6 +290,7 @@ public class AgentPlayer {
 		memoire.enregistrement(positionX, positionY, cellules);
 		Cellule[][] Grille = memoire.getGrille(); 
 		int[] pos = cptToXY(Grille, cpt);
+		mouvement ++;
 		this.setPositionX(pos[0]);
 		this.setPositionY(pos[1]);
 		System.out.println("cpt = "+cpt);
