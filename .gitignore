@@ -1,2 +1,6 @@
 /bin/
 .metadata/
+src/Environement/Gate.java
+src/Environement/Monstre.java
+src/Environement/Pit.java
+src/Environement/Player.java
