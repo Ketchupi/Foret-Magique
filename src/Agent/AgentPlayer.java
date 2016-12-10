@@ -205,7 +205,6 @@ public class AgentPlayer {
 
 		position = droiteKev(Grille, positionX, positionY);
 
-		
 		System.out.println( positionX + " , " + positionY + " = "+ Grille[positionX][positionY].getConnu());
 		
 		if(position==null){
@@ -230,6 +229,7 @@ public class AgentPlayer {
 		
 		return true;
 	}
+	
 	public boolean KnownPlace(Cellule[][] grille, int i, int j){
 		
 		if(grille[i][j].getConnu()){

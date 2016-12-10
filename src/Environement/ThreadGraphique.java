@@ -37,15 +37,11 @@ public class ThreadGraphique implements Runnable {
 		
 		generator.generatePlace(cellules, dimm);
 		
-
 		// Boucle qui actualise l'interface graphique
 		while (true) {
 
 			// On actualise la fenetre
 			fenetre.repaint();	
-			
-			
-			
 			
 			// Timer
 			try {

@@ -45,7 +45,7 @@ public class Fenetre extends JFrame implements ActionListener {
 		
 		cellules = new Cellule[dimmension][dimmension];
 		
-		// création de la fenêtre
+		// creation de la fenetre
 		
 		for (int i = 0; i < dimmension; i++) {
 			for (int j = 0; j < dimmension; j++) {
@@ -98,7 +98,7 @@ public class Fenetre extends JFrame implements ActionListener {
 		//On passe le tableau de cellule dans grille qui vas dessiner
 		this.grille = new Grille(cellules,dimm,kevin);
 		grille.setKevin(kevin);
-		//On ajoute au Panel qui sera réactualisé (remove puis add)
+		//On ajoute au Panel qui sera reactualise (remove puis add)
 		this.getContentPane().add(grille, BorderLayout.CENTER);
 
 		this.setVisible(true);
@@ -128,13 +128,13 @@ public class Fenetre extends JFrame implements ActionListener {
 		this.dimm = dimm;
 	}
 
-	// Classe écoutant notre premier bouton
+	// Classe ecoutant notre premier bouton
 	class Bouton1Listener implements ActionListener {
-		// Redéfinition de la méthode actionPerformed()
+		// Redefinition de la methode actionPerformed()
 		public void actionPerformed(ActionEvent arg0) {
 			
 			/*
-			 * Thread de l'intelligence et du déplacememnt du personnage
+			 * Thread de l'intelligence et du deplacememnt du personnage
 			 * L'orsqu'on click on dévérouille la pause jusqu'a la prochaine itération
 			 */
 				threadKevin.resume();
@@ -143,9 +143,9 @@ public class Fenetre extends JFrame implements ActionListener {
 		}
 	}
 
-	// Classe écoutant notre second bouton
+	// Classe ecoutant notre second bouton
 	class Bouton2Listener implements ActionListener {
-		// Redéfinition de la méthode actionPerformed()
+		// Redefinition de la methode actionPerformed()
 		public void actionPerformed(ActionEvent e) {
 			//Exit propre
 			System.exit(0);
@@ -153,7 +153,7 @@ public class Fenetre extends JFrame implements ActionListener {
 	}
 	
 	/**
-	 * C'est ici qu'on redecine la fenetre lors d'une win/defaite
+	 * C'est ici qu'on redessine la fenetre lors d'une win/defaite
 	 * On reprend les cellules modifier plus en haut, et on met la nouvelle dimension
 	 * @param cell
 	 * @param dim
