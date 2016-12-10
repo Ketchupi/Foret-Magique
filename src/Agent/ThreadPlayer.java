@@ -45,7 +45,7 @@ public class ThreadPlayer implements Runnable {
 			player.findPit();
 			
 			if(player.getAlive()){
-				player.bouger(cpt);
+				player.bouger(cellules, cpt);
 			}
 			else{
 				player.initPositionPlayer(fenetre,generator);
@@ -53,24 +53,8 @@ public class ThreadPlayer implements Runnable {
 				player.afficherPlayer();
 				player.setAlive(true);
 			}
-			
-<<<<<<< HEAD
-			//=====TEST====
-			/*
-			if(cpt >5){
-				player.setPositionX(2);player.setPositionY(0);
-			}
-			if(cpt >10){
-				player.setPositionX(3);player.setPositionY(0);
-			}
-			if(cpt >15){
-				player.setPositionX(4);player.setPositionY(0);
-			}
-			*/
-			
-=======
+
 			cpt ++;
->>>>>>> 626a1d531b09a5913e901a90b42a0a2426745577
 			//Thread.sleep(timer);
 			
 			cpt ++;

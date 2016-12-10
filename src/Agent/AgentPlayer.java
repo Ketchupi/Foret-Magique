@@ -169,10 +169,10 @@ public class AgentPlayer {
 			return position;
 		}
 		
-<<<<<<< HEAD
+
 		//SI X DIFFERENT BORD DROIT
 		if(positionX!=(newTaille-1)){	
-			if(testEndDroite(positionX, positionY)==true){
+			if(EndDroite(positionX, positionY)==true){
 				if(Grille[positionX+1][positionY].getConnu()==false){
 					position = droite(positionX, positionY);
 				}
@@ -183,7 +183,7 @@ public class AgentPlayer {
 			
 		}
 		if(positionX==newTaille-1){
-			if(testEndBas(positionX, positionY)==true){
+			if(EndBas(positionX, positionY)==true){
 				if(Grille[positionX][positionY+1].getConnu()==false){
 					position = bas(positionX, positionY);
 				}
@@ -193,7 +193,7 @@ public class AgentPlayer {
 			}
 		}
 		if(positionY==newTaille-1){
-			if(testEndGauche(positionX, positionY)==true){
+			if(EndGauche(positionX, positionY)==true){
 				if(Grille[positionX-1][positionY].getConnu()==false){
 					position = gauche(positionX, positionY);
 				}
@@ -202,9 +202,9 @@ public class AgentPlayer {
 				position = haut(positionX, positionY);
 			}
 		}
-=======
+
 		position = droiteKev(Grille, positionX, positionY);
->>>>>>> 626a1d531b09a5913e901a90b42a0a2426745577
+
 		
 		System.out.println( positionX + " , " + positionY + " = "+ Grille[positionX][positionY].getConnu());
 		
@@ -219,10 +219,7 @@ public class AgentPlayer {
 	}
 
 	
-<<<<<<< HEAD
-	public boolean testEndDroite(int i, int j){
-		if (i+1<newTaille){
-=======
+
 	public boolean NextBoxIsNew(Cellule[][] grille, int i, int j){
 		
 		int[] NextPosition = droiteKev(grille, i,j);
@@ -243,7 +240,7 @@ public class AgentPlayer {
 	
 	public boolean EndDroite(int i, int j){
 		if (i+1<taille){
->>>>>>> 626a1d531b09a5913e901a90b42a0a2426745577
+
 			return true;
 		}
 		return false;
@@ -262,14 +259,9 @@ public class AgentPlayer {
 		}
 		return false;
 	}
-<<<<<<< HEAD
-	public boolean testEndBas(int i, int j){
-		if (j+1<newTaille){
-=======
 	
 	public boolean EndBas(int i, int j){
 		if (j+1<taille){
->>>>>>> 626a1d531b09a5913e901a90b42a0a2426745577
 			return true;
 		}
 		return false;
@@ -390,13 +382,8 @@ public class AgentPlayer {
 		return o;
 	}
 	
-<<<<<<< HEAD
-	public void bouger(int cpt){
-		memoire.enregistrement(positionX, positionY, cellules);
-=======
 	public void bouger(Cellule[][] actuelle, int cpt){
 		
->>>>>>> 626a1d531b09a5913e901a90b42a0a2426745577
 		Cellule[][] Grille = memoire.getGrille(); 
 		int[] pos = cptToXY(Grille, cpt);
 		mouvement ++;
