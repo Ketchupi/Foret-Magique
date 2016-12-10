@@ -57,6 +57,12 @@ public class Memoire {
 		this.Grille[i][j]= cellules[i][j];
 		this.Grille[i][j].setConnu(true);
 		Cellule cellule = Grille[i][j];
+		if(cellule.getCaca()||cellule.getVent()){
+			cellule.setSafe(false);
+		}
+		else{
+			cellule.setSafe(true);
+		}
 		
 	}
 	
