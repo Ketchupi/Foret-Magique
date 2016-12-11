@@ -217,8 +217,6 @@ public class AgentPlayer {
 		return position;
 	}
 
-	
-
 	public boolean NextBoxIsNew(Cellule[][] grille, int i, int j){
 		
 		int[] NextPosition = droiteKev(grille, i,j);
@@ -374,9 +372,7 @@ public class AgentPlayer {
 		
 		return o;
 	}
-	
-	 
-	
+ 	
 	public int[] surplace(int i, int j){
 		int[] o = new int[] {i,j};
 		return o;
@@ -384,13 +380,18 @@ public class AgentPlayer {
 	
 	public void bouger(Cellule[][] actuelle, int cpt){
 		
-		Cellule[][] Grille = memoire.getGrille(); 
+		Cellule[][] Grille = memoire.getGrille();
 		int[] pos = cptToXY(Grille, cpt);
 		mouvement ++;
 		this.setPositionX(pos[0]);
 		this.setPositionY(pos[1]);
+		System.out.println("bg dans la cellule i,j "+ pos[0] + ","+ pos[1] +" bools odeur, vent : " + actuelle[pos[0]][pos[1]].getCaca() + " , " + actuelle[pos[0]][pos[1]].getVent());
 		memoire.enregistrement(pos[0], pos[1], actuelle);
 		
+		if(!Grille[pos[0]][pos[1]].isSafe()){
+			System.out.println("ya qqchose de pas cool là...");
+			
+		}
 		memoire.ThrowBackPossible(pos[0], pos[1]);
 		
 		System.out.println("cpt = "+cpt);

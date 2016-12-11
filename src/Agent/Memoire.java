@@ -23,21 +23,20 @@ public class Memoire {
 			for (int k = 0; k < taille; k++) {
 				if(Grille[j2][k].getConnu()){
 					p+=1;
-					System.out.println("p = " + p + " " + (taille*taille-1));
-					if(p==(taille*taille)){
+					//System.out.println("p = " + p + " " + (taille*taille-1));
+					if(p>(taille*taille)){
 						System.out.println("On est au bout");
-						return true;
+						return false;
 					}
 				}
 			}
 		}
-		return false;
+		return true;
 	}
 	
 	public void initMemoire(){
 		System.out.println("grille de taille " + taille );
 		
-		System.out.println();
 		for (int i = 0; i < taille; i++) {
 			for (int j = 0; j < taille; j++) {
 				System.out.println(i+" "+ j);
@@ -55,8 +54,14 @@ public class Memoire {
 	public void enregistrement(int i, int j, Cellule[][] cellules){
 		
 		this.Grille[i][j]= cellules[i][j];
+		
+		System.out.println(cellules[i][j].isSafe());
+		
 		this.Grille[i][j].setConnu(true);
-		Cellule cellule = Grille[i][j];
+		
+		System.out.println("dans la cellule i,j "+ i+ ","+j +" bools odeur, vent : " + cellules[i][j].getCaca() + " , " + cellules[i][j].getVent());
+		
+		Cellule cellule = cellules[i][j];
 		if(cellule.getCaca()||cellule.getVent()){
 			cellule.setSafe(false);
 		}
